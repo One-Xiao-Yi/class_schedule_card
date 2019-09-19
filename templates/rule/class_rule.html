@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>针对班级指定排课规则</title>
+    <script src="../../static/js/jquery-3.3.1.min.js"></script>
+    <script src="../../static/js/bootstrap.js"></script>
+    <link rel="stylesheet" href="../../static/css/bootstrap.css">
+    <link rel="stylesheet" href="../../static/css/diy.css">
+</head>
+<body class="body_class">
+    <div class="row path_btn">
+        <div class="col-md-3"></div>
+        <div class="col-md-6">
+            <div class="col-md-2">
+                <button class="btn btn-default" aria-label="Right Align">输入课表信息
+                    <span class="glyphicon glyphicon-arrow-right" aria-hidden="false"></span>
+                </button>
+            </div>
+            <div class="col-md-2">
+                <button class="btn btn-default" aria-label="Right Align">输入课程信息
+                    <span class="glyphicon glyphicon-arrow-right" aria-hidden="false"></span>
+                </button>
+            </div>
+            <div class="col-md-2">
+                <button class="btn btn-default" aria-label="Right Align">输入教师信息
+                    <span class="glyphicon glyphicon-arrow-right" aria-hidden="false"></span>
+                </button>
+            </div>
+            <div class="col-md-2">
+                <button class="btn btn-default" aria-label="Right Align">输入班级信息
+                    <span class="glyphicon glyphicon-arrow-right" aria-hidden="false"></span>
+                </button>
+            </div>
+            <div class="col-md-2">
+                <button class="btn btn-info" aria-label="Right Align">输入排课规则
+                    <span class="glyphicon glyphicon-arrow-right" aria-hidden="false"></span>
+                </button>
+            </div>
+            <div class="col-md-2">
+                <button class="btn btn-default" aria-label="Right Align">开始排课
+                    <span class="glyphicon glyphicon-arrow-right" aria-hidden="false"></span>
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="row path_btn">
+        <div class="col-md-4"></div>
+        <div class="col-md-4">
+            <div class="col-md-6">
+                <button class="btn btn-default" aria-label="Right Align">针对教师指定排课规则
+                    <span class="glyphicon glyphicon-arrow-right" aria-hidden="false"></span>
+                </button>
+            </div>
+            <div class="col-md-6">
+                <button class="btn btn-info" aria-label="Right Align">针对班级指定排课规则
+                    <span class="glyphicon glyphicon-arrow-right" aria-hidden="false"></span>
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="row li_top_lg">
+        <div class="col-md-2"></div>
+        <div class="col-md-2 path_btn">
+            <div class="col-md-10">
+			<div class="panel-group" id="type_box">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						 <p name="class_type_grade_name_div" class="panel-title" data-toggle="collapse" data-parent="#type_box" href="#grade_1_class_type_box">高一</p>
+					</div>
+					<div id="grade_1_class_type_box" class="panel-collapse collapse">
+						<div class="panel-body">
+						    <p name="class_type_grade_name_div" class="panel-title" data-toggle="collapse" data-parent="#grade_1_class_type_box" href="#grade_1_class_type_1_box">高一体育班</p>
+						</div>
+                        <div id="grade_1_class_type_1_box" class="panel-collapse collapse">
+                            <div name="class_type_grade_name_div" class="panel-body">
+                                高一体育1班
+                            </div>
+                            <div name="class_type_grade_name_div" class="panel-body">
+                                高一体育2班
+                            </div>
+                            <div name="class_type_grade_name_div" class="panel-body">
+                                高一体育3班
+                            </div>
+                        </div>
+                        <div class="panel-body">
+						    <p name="class_type_grade_name_div" class="panel-title" data-toggle="collapse" data-parent="#grade_1_class_type_box" href="#grade_1_class_type_2_box">高一音乐班</p>
+						</div>
+                        <div id="grade_1_class_type_2_box" class="panel-collapse collapse">
+                            <div name="class_type_grade_name_div" class="panel-body">
+                                高一音乐1班
+                            </div>
+                            <div name="class_type_grade_name_div" class="panel-body">
+                                高一音乐2班
+                            </div>
+                            <div name="class_type_grade_name_div" class="panel-body">
+                                高一音乐3班
+                            </div>
+                        </div>
+                        <div class="panel-body">
+						    <p name="class_type_grade_name_div" class="panel-title" data-toggle="collapse" data-parent="#grade_1_class_type_box" href="#grade_1_class_type_3_box">高一混合班</p>
+						</div>
+                        <div id="grade_1_class_type_3_box" class="panel-collapse collapse">
+                            <div name="class_type_grade_name_div" class="panel-body">
+                                高一混合1班
+                            </div>
+                            <div name="class_type_grade_name_div" class="panel-body">
+                                高一混合2班
+                            </div>
+                        </div>
+					</div>
+				</div>
+                <div class="panel panel-default">
+					<div class="panel-heading">
+						 <p name="class_type_grade_name_div" class="panel-title" data-toggle="collapse" data-parent="#type_box" href="#grade_2_class_type_box">高二</p>
+					</div>
+					<div id="grade_2_class_type_box" class="panel-collapse collapse">
+						<div class="panel-body">
+						    <p name="class_type_grade_name_div" class="panel-title" data-toggle="collapse" data-parent="#grade_2_class_type_box" href="#grade_2_class_type_1_box">高二体育班</p>
+						</div>
+                        <div id="grade_2_class_type_1_box" class="panel-collapse collapse">
+                            <div name="class_type_grade_name_div" class="panel-body">
+                                高二体育1班
+                            </div>
+                            <div name="class_type_grade_name_div" class="panel-body">
+                                高二体育2班
+                            </div>
+                            <div name="class_type_grade_name_div" class="panel-body">
+                                高二体育3班
+                            </div>
+                        </div>
+                        <div class="panel-body">
+						    <p name="class_type_grade_name_div" class="panel-title" data-toggle="collapse" data-parent="#grade_2_class_type_box" href="#grade_2_class_type_2_box">高二音乐班</p>
+						</div>
+                        <div id="grade_2_class_type_2_box" class="panel-collapse collapse">
+                            <div name="class_type_grade_name_div" class="panel-body">
+                                高二音乐1班
+                            </div>
+                            <div name="class_type_grade_name_div" class="panel-body">
+                                高二音乐2班
+                            </div>
+                            <div name="class_type_grade_name_div" class="panel-body">
+                                高二音乐3班
+                            </div>
+                        </div>
+                        <div class="panel-body">
+						    <p name="class_type_grade_name_div" class="panel-title" data-toggle="collapse" data-parent="#grade_2_class_type_box" href="#grade_2_class_type_3_box">高二混合班</p>
+						</div>
+                        <div id="grade_2_class_type_3_box" class="panel-collapse collapse">
+                            <div name="class_type_grade_name_div" class="panel-body">
+                                高二混合1班
+                            </div>
+                            <div name="class_type_grade_name_div" class="panel-body">
+                                高二混合2班
+                            </div>
+                        </div>
+					</div>
+				</div>
+                <div class="panel panel-default">
+					<div class="panel-heading">
+						 <p name="class_type_grade_name_div" class="panel-title" data-toggle="collapse" data-parent="#type_box" href="#grade_3_class_type_box">高三</p>
+					</div>
+					<div id="grade_3_class_type_box" class="panel-collapse collapse">
+						<div class="panel-body">
+						    <p name="class_type_grade_name_div" class="panel-title" data-toggle="collapse" data-parent="#grade_3_class_type_box" href="#grade_3_class_type_1_box">高三体育班</p>
+						</div>
+                        <div id="grade_3_class_type_1_box" class="panel-collapse collapse">
+                            <div name="class_type_grade_name_div" class="panel-body">
+                                高三体育1班
+                            </div>
+                            <div name="class_type_grade_name_div" class="panel-body">
+                                高三体育2班
+                            </div>
+                            <div name="class_type_grade_name_div" class="panel-body">
+                                高三体育3班
+                            </div>
+                        </div>
+                        <div class="panel-body">
+						    <p name="class_type_grade_name_div" class="panel-title" data-toggle="collapse" data-parent="#grade_3_class_type_box" href="#grade_3_class_type_2_box">高三音乐班</p>
+						</div>
+                        <div id="grade_3_class_type_2_box" class="panel-collapse collapse">
+                            <div name="class_type_grade_name_div" class="panel-body">
+                                高三音乐1班
+                            </div>
+                            <div name="class_type_grade_name_div" class="panel-body">
+                                高三音乐2班
+                            </div>
+                            <div name="class_type_grade_name_div" class="panel-body">
+                                高三音乐3班
+                            </div>
+                        </div>
+                        <div class="panel-body">
+						    <p name="class_type_grade_name_div" class="panel-title" data-toggle="collapse" data-parent="#grade_3_class_type_box" href="#grade_3_class_type_3_box">高三混合班</p>
+						</div>
+                        <div id="grade_3_class_type_3_box" class="panel-collapse collapse">
+                            <div name="class_type_grade_name_div" class="panel-body">
+                                高三混合1班
+                            </div>
+                            <div name="class_type_grade_name_div" class="panel-body">
+                                高三混合2班
+                            </div>
+                        </div>
+					</div>
+				</div>
+			</div>
+            </div>
+        </div>
+        <div class="col-md-5" id="add_rule_box" style="display: none;">
+            <div class="row">
+                <h4 class="text-center" id="class_type_grade_name"></h4>
+            </div>
+            <div class="row li_top_min">
+                <h5>固定上：</h5>
+            </div>
+            <div class="row li_top_min">
+                <div class="col-md-2">
+                    <input id="chinese" type="radio" name="class_name" value="语文">
+                    <label for="chinese">语文</label>
+                </div>
+                <div class="col-md-2">
+                    <input id="math" type="radio" name="class_name" value="数学">
+                    <label for="math">数学</label>
+                </div>
+                <div class="col-md-2">
+                    <input id="english" type="radio" name="class_name" value="英语">
+                    <label for="english">英语</label>
+                </div>
+                <div class="col-md-2">
+                    <input id="history" type="radio" name="class_name" value="历史">
+                    <label for="history">历史</label>
+                </div>
+                <div class="col-md-2">
+                    <input id="geography" type="radio" name="class_name" value="地理">
+                    <label for="geography">地理</label>
+                </div>
+                <div class="col-md-2">
+                    <input id="politics" type="radio" name="class_name" value="政治">
+                    <label for="politics">政治</label>
+                </div>
+                <div class="col-md-2">
+                    <input id="sports" type="radio" name="class_name" value="体育">
+                    <label for="sports">体育</label>
+                </div>
+                <div class="col-md-2">
+                    <input id="major" type="radio" name="class_name" value="专业">
+                    <label for="major">专业</label>
+                </div>
+                <div class="col-md-2">
+                    <input id="cleaning" type="radio" name="class_name" value="扫除">
+                    <label for="cleaning">扫除</label>
+                </div>
+                <div class="col-md-2">
+                    <input id="self_study" type="radio" name="class_name" value="自习">
+                    <label for="self_study">自习</label>
+                </div>
+                <div class="col-md-2">
+                    <input id="rest" type="radio" name="class_name" value="">
+                    <label for="rest">清除排课安排</label>
+                </div>
+            </div>
+            <div class="row li_top_min">
+                <table class="table table-bordered table_border_color">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>星期一</th>
+                            <th>星期二</th>
+                            <th>星期三</th>
+                            <th>星期四</th>
+                            <th>星期五</th>
+                            <th>星期六</th>
+                            <th>星期日</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td name="head_cell">1</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td name="head_cell">2</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td name="head_cell">3</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td name="head_cell">4</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td name="head_cell">5</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td name="head_cell">6</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td name="head_cell">7</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td name="head_cell">8</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+<script>
+    $("td").attr('class','text-center');
+    $("[name='class_type_grade_name_div']").click(function () {
+        $("#add_rule_box").css('display','block');
+        $("#class_type_grade_name").empty().append($(this).text());
+    })
+    let cell_subject = '';
+    $("[name='class_name']").click(function () {
+        cell_subject = $(this).val();
+    })
+    $("td").click(function () {
+        if($(this).attr('name') != 'head_cell')
+        {
+            $(this).empty().append(cell_subject);
+        }else
+        {
+            let old = $(this).text();
+            $(this).nextAll().empty().append(cell_subject);
+            $(this).empty().append(old);
+        }
+    })
+    $("th").click(function () {
+        let column_index = $(this).index();
+        $("tbody tr").each(function () {
+            $(this).children().eq(column_index).empty().append(cell_subject);
+        })
+    })
+</script>
+</body>
+</html>

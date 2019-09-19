@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>针对教师指定排课规则</title>
+    <script src="../../static/js/jquery-3.3.1.min.js"></script>
+    <script src="../../static/js/bootstrap.js"></script>
+    <link rel="stylesheet" href="../../static/css/bootstrap.css">
+    <link rel="stylesheet" href="../../static/css/diy.css">
+</head>
+<body class="body_class">
+    <div class="row path_btn">
+        <div class="col-md-3"></div>
+        <div class="col-md-6">
+            <div class="col-md-2">
+                <button class="btn btn-default" aria-label="Right Align">输入课表信息
+                    <span class="glyphicon glyphicon-arrow-right" aria-hidden="false"></span>
+                </button>
+            </div>
+            <div class="col-md-2">
+                <button class="btn btn-default" aria-label="Right Align">输入课程信息
+                    <span class="glyphicon glyphicon-arrow-right" aria-hidden="false"></span>
+                </button>
+            </div>
+            <div class="col-md-2">
+                <button class="btn btn-default" aria-label="Right Align">输入教师信息
+                    <span class="glyphicon glyphicon-arrow-right" aria-hidden="false"></span>
+                </button>
+            </div>
+            <div class="col-md-2">
+                <button class="btn btn-default" aria-label="Right Align">输入班级信息
+                    <span class="glyphicon glyphicon-arrow-right" aria-hidden="false"></span>
+                </button>
+            </div>
+            <div class="col-md-2">
+                <button class="btn btn-info" aria-label="Right Align">输入排课规则
+                    <span class="glyphicon glyphicon-arrow-right" aria-hidden="false"></span>
+                </button>
+            </div>
+            <div class="col-md-2">
+                <button class="btn btn-default" aria-label="Right Align">开始排课
+                    <span class="glyphicon glyphicon-arrow-right" aria-hidden="false"></span>
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="row path_btn">
+        <div class="col-md-4"></div>
+        <div class="col-md-4">
+            <div class="col-md-6">
+                <button class="btn btn-info" aria-label="Right Align">针对教师指定排课规则
+                    <span class="glyphicon glyphicon-arrow-right" aria-hidden="false"></span>
+                </button>
+            </div>
+            <div class="col-md-6">
+                <button class="btn btn-default" aria-label="Right Align">针对班级指定排课规则
+                    <span class="glyphicon glyphicon-arrow-right" aria-hidden="false"></span>
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="row path_btn">
+        <div class="col-md-2"></div>
+        <div class="col-md-2 path_btn">
+            <div class="col-md-10">
+			<div class="panel-group" id="class_box">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						 <p name="teacher_name_div" class="panel-title" data-toggle="collapse" data-parent="#class_box" href="#grade_1_class_type_box">领导</p>
+					</div>
+					<div id="grade_1_class_type_box" class="panel-collapse collapse">
+						<div name="teacher_name_div" class="panel-body">
+							领导1
+						</div>
+                        <div name="teacher_name_div" class="panel-body">
+							领导2
+						</div>
+                        <div name="teacher_name_div" class="panel-body">
+							领导3
+						</div>
+					</div>
+				</div>
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						 <p name="teacher_name_div" class="panel-title" data-toggle="collapse" data-parent="#class_box" href="#grade_2_class_type_box">普通教师</p>
+					</div>
+					<div id="grade_2_class_type_box" class="panel-collapse collapse">
+						<div name="teacher_name_div" class="panel-body">
+							普通教师1
+						</div>
+                        <div name="teacher_name_div" class="panel-body">
+							普通教师2
+						</div>
+                        <div name="teacher_name_div" class="panel-body">
+							普通教师3
+						</div>
+                        <div name="teacher_name_div" class="panel-body">
+							普通教师4
+						</div>
+                        <div name="teacher_name_div" class="panel-body">
+							普通教师5
+						</div>
+                        <div name="teacher_name_div" class="panel-body">
+							普通教师6
+						</div>
+                        <div name="teacher_name_div" class="panel-body">
+							普通教师7
+						</div>
+                        <div name="teacher_name_div" class="panel-body">
+							普通教师8
+						</div>
+                        <div name="teacher_name_div" class="panel-body">
+							普通教师9
+						</div>
+					</div>
+				</div>
+			</div>
+            </div>
+        </div>
+        <div class="col-md-5" id="add_rule_box" style="display: none;">
+            <div class="row">
+                <h4 class="text-center" id="teacher_name"></h4>
+            </div>
+            <div class="row li_top_min">
+                <h5 class="text-center">选择固定上或固定不上某节课按钮，在空课程表上点击相应课时，则在排课时，将固定为该教师排或不排该课时。</h5>
+            </div>
+            <div class="row li_top_min">
+                <div class="col-md-3">
+                    <input id="class_true" type="radio" name="class_tf" value="0">
+                    <p class="btn btn-success">固定上某节课</p>
+                </div>
+                <div class="col-md-3">
+                    <input id="class_false" type="radio" name="class_tf" value="1">
+                    <p class="btn btn-danger">固定不上某节课</p>
+                </div>
+                <div class="col-md-3">
+                    <input id="class_false" type="radio" name="class_tf" value="2">
+                    <p class="btn btn-default">清除某节课颜色</p>
+                </div>
+            </div>
+            <div class="row li_top_min">
+                <table class="table table-bordered table_border_color">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>星期一</th>
+                            <th>星期二</th>
+                            <th>星期三</th>
+                            <th>星期四</th>
+                            <th>星期五</th>
+                            <th>星期六</th>
+                            <th>星期日</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td name="head_cell">1</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td name="head_cell">2</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td name="head_cell">3</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td name="head_cell">4</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td name="head_cell">5</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td name="head_cell">6</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td name="head_cell">7</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td name="head_cell">8</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+<script>
+    let green_color = '#5cb85c';
+    let red_color = '#d9534f';
+    let cell_color = '';
+    $("[name='class_tf']").click(function () {
+        let color_number = $("[name='class_tf']:checked").val();
+        if(Number(color_number) == 0)
+        {
+            cell_color = green_color;
+        }else if (Number(color_number) == 1)
+        {
+            cell_color = red_color;
+        }else
+        {
+            cell_color = '';
+        }
+    })
+    $("td").click(function () {
+        $(this).css('background-color',cell_color);
+    })
+    $("th").click(function () {
+        let column_index = $(this).index();
+        $("tbody tr").each(function () {
+            $(this).children().eq(column_index).css('background-color',cell_color);
+        })
+    })
+    $("[name='head_cell']").click(function () {
+        $(this).nextAll().css('background-color',cell_color);
+        $(this).css('background-color','');
+    })
+    $("[name='teacher_name_div']").click(function () {
+        let teacher_name = $(this).text();
+        $("#add_rule_box").css('display','block');
+        $("#teacher_name").empty().append(teacher_name);
+    })
+</script>
+</body>
+</html>

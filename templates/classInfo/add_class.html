@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>添加班级</title>
+    <script src="../../static/js/jquery-3.3.1.min.js"></script>
+    <script src="../../static/js/bootstrap.js"></script>
+    <link rel="stylesheet" href="../../static/css/bootstrap.css">
+    <link rel="stylesheet" href="../../static/css/diy.css">
+</head>
+<body class="body_class">
+    <div class="row path_btn">
+        <div class="col-md-3"></div>
+        <div class="col-md-6">
+            <div class="col-md-2">
+                <button class="btn btn-default" aria-label="Right Align">输入课表信息
+                    <span class="glyphicon glyphicon-arrow-right" aria-hidden="false"></span>
+                </button>
+            </div>
+            <div class="col-md-2">
+                <button class="btn btn-default" aria-label="Right Align">输入课程信息
+                    <span class="glyphicon glyphicon-arrow-right" aria-hidden="false"></span>
+                </button>
+            </div>
+            <div class="col-md-2">
+                <button class="btn btn-default" aria-label="Right Align">输入教师信息
+                    <span class="glyphicon glyphicon-arrow-right" aria-hidden="false"></span>
+                </button>
+            </div>
+            <div class="col-md-2">
+                <button class="btn btn-info" aria-label="Right Align">输入班级信息
+                    <span class="glyphicon glyphicon-arrow-right" aria-hidden="false"></span>
+                </button>
+            </div>
+            <div class="col-md-2">
+                <button class="btn btn-default" aria-label="Right Align">输入排课规则
+                    <span class="glyphicon glyphicon-arrow-right" aria-hidden="false"></span>
+                </button>
+            </div>
+            <div class="col-md-2">
+                <button class="btn btn-default" aria-label="Right Align">开始排课
+                    <span class="glyphicon glyphicon-arrow-right" aria-hidden="false"></span>
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="row path_btn">
+        <div class="col-md-4"></div>
+        <div class="col-md-4">
+            <div class="col-md-4">
+                <button class="btn btn-info" aria-label="Right Align">添加班级
+                    <span class="glyphicon glyphicon-arrow-right" aria-hidden="false"></span>
+                </button>
+            </div>
+            <div class="col-md-4">
+                <button class="btn btn-default" aria-label="Right Align">分配课程及课时
+                    <span class="glyphicon glyphicon-arrow-right" aria-hidden="false"></span>
+                </button>
+            </div>
+            <div class="col-md-4">
+                <button class="btn btn-default" aria-label="Right Align">班级信息及调整
+                    <span class="glyphicon glyphicon-arrow-right" aria-hidden="false"></span>
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="row li_top_lg">
+        <div class="col-md-2"></div>
+        <div class="col-md-1">
+            <button id="add_class" class="form-control btn btn-info">添加班级</button>
+        </div>
+    </div>
+    <div class="row li_top_min">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+            <table class="table table-bordered table_border_color">
+                <thead>
+                    <tr>
+                        <th>班级名称</th>
+                        <th>所属班级类型</th>
+                        <th>所属年级</th>
+                        <th>删除</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="modal fade" id="add_class_box" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div class="row">
+                        <h4 class="modal-title text-center">添加班级</h4>
+                    </div>
+                    <div class="row">
+                        <h5 class="text-center">选择对应的年级和班级类型，输入需添加的班级数，将自动生成班级。</h5>
+                    </div>
+                    <div class="row">
+                        <h5 class="text-center">例：高一音乐班5个班。选中高一、音乐班，输入5，点击保存，即可自动生成。</h5>
+                    </div>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-2"></div>
+                        <div class="col-md-8">
+                            <h5>所属年级：</h5>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2"></div>
+                        <div id="grade_box" class="col-md-8">
+                            <div class="col-md-3">
+                                <input type="radio" id="chinese" name="grade" value="高一">
+                                <label for="chinese">高一</label>
+                            </div>
+                            <div class="col-md-3">
+                                <input type="radio" id="math" name="grade" value="高二">
+                                <label for="math">高二</label>
+                            </div>
+                            <div class="col-md-3">
+                                <input type="radio" id="english" name="grade" value="高三">
+                                <label for="chinese">高三</label>
+                            </div>
+                            <div class="col-md-3">
+                                <input type="radio" id="english" name="grade" value="补习班">
+                                <label for="chinese">补习班</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4"></div>
+                        <div class="col-md-4">
+                                <button id="add_grade" class="form-control">+</button>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2"></div>
+                        <div class="col-md-8">
+                            <h5>所属班级类型：</h5>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2"></div>
+                        <div class="col-md-8" id="class_type_box">
+                            <div class="col-md-4">
+                                <input type="radio" id="header" name="class_type" value="音乐班">
+                                <label for="header">音乐班</label>
+                            </div>
+                            <div class="col-md-4">
+                                <input type="radio" id="normal_teacher" name="class_type" value="体育班">
+                                <label for="normal_teacher">体育班</label>
+                            </div>
+                            <div class="col-md-4">
+                                <input type="radio" id="normal_teacher" name="class_type" value="混合班">
+                                <label for="normal_teacher">混合班</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4"></div>
+                        <div class="col-md-4">
+                                <button id="add_class_type" class="form-control">+</button>
+                        </div>
+                    </div>
+                    <div class="row li_top_min">
+                        <div class="col-md-2"></div>
+                        <div class="col-md-8">
+                            <div class="input-group">
+                                <span class="input-group-addon">添加班级数：</span>
+                                <input id="class_number" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="row">
+                        <div class="col-md-2"></div>
+                        <div class="col-md-4">
+                            <button id="class_go_on" class="form-control">保存并继续</button>
+                        </div>
+                        <div class="col-md-4">
+                            <button id="class_save_end" class="form-control">取消</button>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <h5 id="class_error_txt" class="text-center"></h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="add_grade_box" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title text-center">添加年级</h5>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-2"></div>
+                        <div class="col-md-8">
+                            <div class="input-group">
+                                <span class="input-group-addon">年级名称：</span>
+                                <input id="grade_name" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="row">
+                        <div class="col-md-2"></div>
+                        <div class="col-md-4">
+                            <button id="grade_go_on" class="form-control">保存并继续</button>
+                        </div>
+                        <div class="col-md-4">
+                            <button id="grade_save_end" class="form-control">保存</button>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <h5 id="grade_error_txt" class="text-center"></h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="add_class_type_box" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title text-center">添加班级类型</h5>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-2"></div>
+                        <div class="col-md-8">
+                            <div class="input-group">
+                                <span class="input-group-addon">班级类型名称：</span>
+                                <input id="class_type_name" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="row">
+                        <div class="col-md-2"></div>
+                        <div class="col-md-4">
+                            <button id="class_type_go_on" class="form-control">保存并继续</button>
+                        </div>
+                        <div class="col-md-4">
+                            <button id="class_type_save_end" class="form-control">保存</button>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <h5 id="class_type_error_txt" class="text-center"></h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<script>
+    $("#add_class").click(function () {
+        $("#add_class_box").modal("show");
+    })
+    $("#add_grade").click(function () {
+        $("#add_grade_box").modal("show");
+    })
+    $("#add_class_type").click(function () {
+        $("#add_class_type_box").modal("show");
+    })
+    $("#grade_go_on").click(function () {
+        let grade_name = $("#grade_name").val();
+        if(grade_name != "" && grade_name != null)
+        {
+            $("#grade_box").append("<div class=\"col-md-3\">\n" +
+                "                                <input type=\"radio\" id='"+grade_name+"' name=\"grade\" value='" + grade_name + "'>\n" +
+                "                                <label for='"+grade_name+"'>" + grade_name + "</label>\n" +
+                "                            </div>")
+            $("#grade_name").val("");
+        }else
+        {
+            $("#grade_error_txt").append("请输入年级名称");
+        }
+    })
+    $("#grade_save_end").click(function () {
+        let grade_name = $("#grade_name").val();
+        if(grade_name != "" && grade_name != null)
+        {
+            $("#grade_box").append("<div class=\"col-md-3\">\n" +
+                "                                <input type=\"radio\" id='"+grade_name+"' name=\"grade\" value='" + grade_name + "'>\n" +
+                "                                <label for='"+grade_name+"'>" + grade_name + "</label>\n" +
+                "                            </div>")
+            $("#grade_name").val("");
+            $("#add_grade_box").modal("hide");
+        }else
+        {
+            $("#add_grade_box").modal("hide");
+        }
+    })
+    $("#class_type_go_on").click(function () {
+        let class_type_name = $("#class_type_name").val();
+        if(class_type_name != "" && class_type_name != null)
+        {
+            $("#class_type_box").append("<div class=\"col-md-3\">\n" +
+                "                                <input type=\"radio\" id='"+class_type_name+"' name=\"class_type\" value='" + class_type_name + "'>\n" +
+                "                                <label for='"+class_type_name+"'>" + class_type_name + "</label>\n" +
+                "                            </div>")
+            $("#class_type_name").val("");
+        }else
+        {
+            $("#class_type_error_txt").append("请输入班级类型名称");
+        }
+    })
+    $("#class_type_save_end").click(function () {
+        let class_type_name = $("#class_type_name").val();
+        if(class_type_name != "" && class_type_name != null)
+        {
+            $("#class_type_box").append("<div class=\"col-md-3\">\n" +
+                "                                <input type=\"radio\" id='"+class_type_name+"' name=\"class_type\" value='" + class_type_name + "'>\n" +
+                "                                <label for='"+class_type_name+"'>" + class_type_name + "</label>\n" +
+                "                            </div>")
+            $("#class_type_name").val("");
+            $("#add_class_type_box").modal("hide");
+        }else
+        {
+            $("#class_type_error_txt").val("请输入班级类型名称");
+            $("#add_class_type_box").modal("hide");
+        }
+    })
+    $("#class_go_on").click(function () {
+        let grade = $("[name='grade']:checked").val();
+        let class_type = $("[name='class_type']:checked").val();
+        let class_number = $("#class_number").val();
+        if(grade != '' && grade != null && class_type != null && class_type != '' && Number(class_number) > 0)
+        {
+            let trs = '';
+            for(let i=1;i<=Number(class_number);i++)
+            {
+               trs += "<tr>\n" +
+                "                        <td>"+grade+class_type+i+"班</td>\n" +
+                "                        <td>"+class_type+"</td>\n" +
+                "                        <td>"+grade+"</td>\n" +
+                "                        <td><button name=\"delete\" class=\"btn btn-danger\">删除</button></td>\n" +
+                "                    </tr>"
+            }
+            $('tbody').append(trs);
+            $("#class_number").val("");
+        }else
+        {
+            $("#class_error_txt").append("请检查是否有信息未选择或未输入")
+        }
+    })
+    $("#class_save_end").click(function () {
+        $("#class_number").val("");
+        $("#add_class_box").modal("hide");
+    })
+    $(document).on('click','[name="delete"]',function () {
+        $(this).parent().parent().remove();
+    })
+</script>
+</body>
+</html>

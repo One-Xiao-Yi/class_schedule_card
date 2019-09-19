@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>输入课表信息</title>
+    <script src="../../static/js/jquery-3.3.1.min.js"></script>
+    <script src="../../static/js/bootstrap.js"></script>
+    <link rel="stylesheet" href="../../static/css/bootstrap.css">
+    <link rel="stylesheet" href="../../static/css/diy.css">
+</head>
+<body class="body_class">
+    <div class="row path_btn">
+        <div class="col-md-3"></div>
+        <div class="col-md-6">
+            <div class="col-md-2">
+                <button class="btn btn-info" aria-label="Right Align">输入课表信息
+                    <span class="glyphicon glyphicon-arrow-right" aria-hidden="false"></span>
+                </button>
+            </div>
+            <div class="col-md-2">
+                <button class="btn btn-default" aria-label="Right Align">输入课程信息
+                    <span class="glyphicon glyphicon-arrow-right" aria-hidden="false"></span>
+                </button>
+            </div>
+            <div class="col-md-2">
+                <button class="btn btn-default" aria-label="Right Align">输入教师信息
+                    <span class="glyphicon glyphicon-arrow-right" aria-hidden="false"></span>
+                </button>
+            </div>
+            <div class="col-md-2">
+                <button class="btn btn-default" aria-label="Right Align">输入班级信息
+                    <span class="glyphicon glyphicon-arrow-right" aria-hidden="false"></span>
+                </button>
+            </div>
+            <div class="col-md-2">
+                <button class="btn btn-default" aria-label="Right Align">输入排课规则
+                    <span class="glyphicon glyphicon-arrow-right" aria-hidden="false"></span>
+                </button>
+            </div>
+            <div class="col-md-2">
+                <button class="btn btn-default" aria-label="Right Align">开始排课
+                    <span class="glyphicon glyphicon-arrow-right" aria-hidden="false"></span>
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="row li_top_lg">
+        <h3 class="text-center">设置每周上课天数，以及每天课时。</h3>
+    </div>
+    <div class="row li_top_min">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+            <div class="col-md-4">
+                <div class="input-group">
+                    <span class="input-group-addon">每周</span>
+                    <input id="days" type="number" class="form-control" aria-label="Amount (to the nearest dollar)">
+                    <span class="input-group-addon">天</span>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="input-group">
+                    <span class="input-group-addon">每天早读</span>
+                    <input id="early" type="number" class="form-control" aria-label="Amount (to the nearest dollar)">
+                    <span class="input-group-addon">节</span>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="input-group">
+                    <span class="input-group-addon">每天上午</span>
+                    <input id="morning" type="number" class="form-control" aria-label="Amount (to the nearest dollar)">
+                    <span class="input-group-addon">节</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row li_top_min">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+            <div class="col-md-4">
+                <div class="input-group">
+                    <span class="input-group-addon">每天下午</span>
+                    <input id="afternoon" type="number" class="form-control" aria-label="Amount (to the nearest dollar)">
+                    <span class="input-group-addon">节</span>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="input-group">
+                    <span class="input-group-addon">每天晚读</span>
+                    <input id="night" type="number" class="form-control" aria-label="Amount (to the nearest dollar)">
+                    <span class="input-group-addon">节</span>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <button id="create_table" class="btn btn-info">生成空课程表</button>
+            </div>
+        </div>
+    </div>
+    <div class="row li_top_lg">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+            <table id="null_table" class="table table-bordered table_border_color">
+            </table>
+        </div>
+    </div>
+    <div id="submit_box" class="row li_top_min" style="text-align: center"></div>
+    <script>
+        $("#create_table").click(function () {
+            let days = $("#days").val();
+            let early = $("#early").val();
+            let morning = $("#morning").val();
+            let afternoon = $("#afternoon").val();
+            let night = $("#night").val();
+            let check = true;
+            let week = "";
+            switch (days) {
+                case '0':
+                    console.log(days)
+                    week = "请输入大于0的天数";
+                    check = false;
+                    break;
+                case '1':
+                    week = "<thead>" +
+                        "<tr>" +
+                        "<th></th>" +
+                        "<th>星期一</th>" +
+                        "</tr>" +
+                        "</thead>";
+                    break;
+                case '2':
+                    week = "<thead>" +
+                        "<tr>" +
+                        "<th></th>" +
+                        "<th>星期一</th>" +
+                        "<th>星期二</th>" +
+                        "</tr>" +
+                        "</thead>";
+                    break;
+                case '3':
+                    week = "<thead>" +
+                        "<tr>" +
+                        "<th></th>" +
+                        "<th>星期一</th>" +
+                        "<th>星期二</th>" +
+                        "<th>星期三</th>" +
+                        "</tr>" +
+                        "</thead>";
+                    break;
+                case '4':
+                    week = "<thead>" +
+                        "<tr>" +
+                        "<th></th>" +
+                        "<th>星期一</th>" +
+                        "<th>星期二</th>" +
+                        "<th>星期三</th>" +
+                        "<th>星期四</th>" +
+                        "</tr>" +
+                        "</thead>";
+                    break;
+                case '5':
+                    week = "<thead>" +
+                        "<tr>" +
+                        "<th></th>" +
+                        "<th>星期一</th>" +
+                        "<th>星期二</th>" +
+                        "<th>星期三</th>" +
+                        "<th>星期四</th>" +
+                        "<th>星期五</th>" +
+                        "</tr>" +
+                        "</thead>";
+                    break;
+                case '6':
+                    week = "<thead>" +
+                        "<tr>" +
+                        "<th></th>" +
+                        "<th>星期一</th>" +
+                        "<th>星期二</th>" +
+                        "<th>星期三</th>" +
+                        "<th>星期四</th>" +
+                        "<th>星期五</th>" +
+                        "<th>星期六</th>" +
+                        "</tr>" +
+                        "</thead>";
+                    break;
+                case '7':
+                    week = "<thead>" +
+                        "<tr>" +
+                        "<th></th>" +
+                        "<th>星期一</th>" +
+                        "<th>星期二</th>" +
+                        "<th>星期三</th>" +
+                        "<th>星期四</th>" +
+                        "<th>星期五</th>" +
+                        "<th>星期六</th>" +
+                        "<th>星期日</th>" +
+                        "</tr>" +
+                        "</thead>";
+                    break;
+                default:
+                    console.log(days)
+                    week = "请输入小于8的数";
+                    check = false;
+                    break;
+            }
+            if(check)
+            {
+                let early_table = "<tbody>";
+                for(let i=1;i<=early;i++)
+                {
+                    early_table += "<tr><td>早读" + i + "</td>";
+                    for(let j=0;j<days;j++)
+                    {
+                        early_table += "<td></td>"
+                    }
+                    early_table += "</tr>"
+                }
+                let morning_table = "";
+                for(let i=1;i<=morning;i++)
+                {
+                    morning_table += "<tr><td>" + i + "</td>";
+                    for(let j=0;j<days;j++)
+                    {
+                        morning_table += "<td></td>"
+                    }
+                    morning_table += "</tr>"
+                }
+                let afternoon_table = "";
+                for(let i=Number(morning) + 1;i<=Number(morning)+Number(afternoon);i++)
+                {
+                    afternoon_table += "<tr><td>" + i + "</td>";
+                    for(let j=0;j<days;j++)
+                    {
+                        afternoon_table += "<td></td>"
+                    }
+                    afternoon_table += "</tr>"
+                }
+                let night_table = "";
+                for(let i=1;i<=night;i++)
+                {
+                    night_table += "<tr><td>晚读" + i + "</td>";
+                    for(let j=0;j<days;j++)
+                    {
+                        night_table += "<td></td>"
+                    }
+                    night_table += "</tr>"
+                }
+                night_table += "</tbody>"
+                week += early_table + morning_table + afternoon_table + night_table;
+            }
+            $("#null_table").empty().append(week);
+            if(check)
+            {
+                $("#submit_box").empty().append("<button class='btn btn-info'>保存课表信息</button>")
+            }
+        })
+    </script>
+</body>
+</html>

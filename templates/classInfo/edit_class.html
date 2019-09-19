@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>班级调整</title>
+    <script src="../../static/js/jquery-3.3.1.min.js"></script>
+    <script src="../../static/js/bootstrap.js"></script>
+    <link rel="stylesheet" href="../../static/css/bootstrap.css">
+    <link rel="stylesheet" href="../../static/css/diy.css">
+</head>
+<body class="body_class">
+    <div class="row path_btn">
+        <div class="col-md-3"></div>
+        <div class="col-md-6">
+            <div class="col-md-2">
+                <button class="btn btn-default" aria-label="Right Align">输入课表信息
+                    <span class="glyphicon glyphicon-arrow-right" aria-hidden="false"></span>
+                </button>
+            </div>
+            <div class="col-md-2">
+                <button class="btn btn-default" aria-label="Right Align">输入课程信息
+                    <span class="glyphicon glyphicon-arrow-right" aria-hidden="false"></span>
+                </button>
+            </div>
+            <div class="col-md-2">
+                <button class="btn btn-default" aria-label="Right Align">输入教师信息
+                    <span class="glyphicon glyphicon-arrow-right" aria-hidden="false"></span>
+                </button>
+            </div>
+            <div class="col-md-2">
+                <button class="btn btn-info" aria-label="Right Align">输入班级信息
+                    <span class="glyphicon glyphicon-arrow-right" aria-hidden="false"></span>
+                </button>
+            </div>
+            <div class="col-md-2">
+                <button class="btn btn-default" aria-label="Right Align">输入排课规则
+                    <span class="glyphicon glyphicon-arrow-right" aria-hidden="false"></span>
+                </button>
+            </div>
+            <div class="col-md-2">
+                <button class="btn btn-default" aria-label="Right Align">开始排课
+                    <span class="glyphicon glyphicon-arrow-right" aria-hidden="false"></span>
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="row path_btn">
+        <div class="col-md-4"></div>
+        <div class="col-md-4">
+            <div class="col-md-4">
+                <button class="btn btn-default" aria-label="Right Align">添加班级
+                    <span class="glyphicon glyphicon-arrow-right" aria-hidden="false"></span>
+                </button>
+            </div>
+            <div class="col-md-4">
+                <button class="btn btn-default" aria-label="Right Align">分配课程及课时
+                    <span class="glyphicon glyphicon-arrow-right" aria-hidden="false"></span>
+                </button>
+            </div>
+            <div class="col-md-4">
+                <button class="btn btn-info" aria-label="Right Align">班级信息及调整
+                    <span class="glyphicon glyphicon-arrow-right" aria-hidden="false"></span>
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="row path_btn">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+            <table class="table table-bordered table_border_color">
+                <thead>
+                    <tr>
+                        <th>年级</th>
+                        <th>班级类型</th>
+                        <th>班级名称</th>
+                        <th>课程及课时</th>
+                        <th>修改</th>
+                        <th>删除</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>高一</td>
+                        <td>体育班</td>
+                        <td>高一体育班1班</td>
+                        <td>语文16节、数学16节、英语16节、历史10节</td>
+                        <td><button class="btn btn-info" name="edit">修改</button></td>
+                        <td><button class="btn btn-danger" name="delete">删除</button></td>
+                    </tr>
+                    <tr>
+                        <td>高一</td>
+                        <td>体育班</td>
+                        <td>高一体育班2班</td>
+                        <td>语文16节、数学16节、英语16节、历史10节</td>
+                        <td><button class="btn btn-info" name="edit">修改</button></td>
+                        <td><button class="btn btn-danger" name="delete">删除</button></td>
+                    </tr>
+                    <tr>
+                        <td>高一</td>
+                        <td>体育班</td>
+                        <td>高一体育班3班</td>
+                        <td>语文16节、数学16节、英语16节、历史10节</td>
+                        <td><button class="btn btn-info" name="edit">修改</button></td>
+                        <td><button class="btn btn-danger" name="delete">删除</button></td>
+                    </tr>
+                    <tr>
+                        <td>高一</td>
+                        <td>音乐班</td>
+                        <td>高一音乐班1班</td>
+                        <td>语文16节、数学16节、英语16节、历史10节</td>
+                        <td><button class="btn btn-info" name="edit">修改</button></td>
+                        <td><button class="btn btn-danger" name="delete">删除</button></td>
+                    </tr>
+                    <tr>
+                        <td>高一</td>
+                        <td>音乐班</td>
+                        <td>高一音乐班2班</td>
+                        <td>语文16节、数学16节、英语16节、历史10节</td>
+                        <td><button class="btn btn-info" name="edit">修改</button></td>
+                        <td><button class="btn btn-danger" name="delete">删除</button></td>
+                    </tr>
+                    <tr>
+                        <td>高一</td>
+                        <td>音乐班</td>
+                        <td>高一音乐班3班</td>
+                        <td>语文16节、数学16节、英语16节、历史10节</td>
+                        <td><button class="btn btn-info" name="edit">修改</button></td>
+                        <td><button class="btn btn-danger" name="delete">删除</button></td>
+                    </tr>
+                    <tr>
+                        <td>高一</td>
+                        <td>混合班</td>
+                        <td>高一混合班1班</td>
+                        <td>语文16节、数学16节、英语16节、历史10节</td>
+                        <td><button class="btn btn-info" name="edit">修改</button></td>
+                        <td><button class="btn btn-danger" name="delete">删除</button></td>
+                    </tr>
+                    <tr>
+                        <td>高一</td>
+                        <td>混合班</td>
+                        <td>高一混合班2班</td>
+                        <td>语文16节、数学16节、英语16节、历史10节</td>
+                        <td><button class="btn btn-info" name="edit">修改</button></td>
+                        <td><button class="btn btn-danger" name="delete">删除</button></td>
+                    </tr>
+                    <tr>
+                        <td>高二</td>
+                        <td>体育班</td>
+                        <td>高二体育班1班</td>
+                        <td>语文16节、数学16节、英语16节、历史10节</td>
+                        <td><button class="btn btn-info" name="edit">修改</button></td>
+                        <td><button class="btn btn-danger" name="delete">删除</button></td>
+                    </tr>
+                    <tr>
+                        <td>高二</td>
+                        <td>体育班</td>
+                        <td>高二体育班2班</td>
+                        <td>语文16节、数学16节、英语16节、历史10节</td>
+                        <td><button class="btn btn-info" name="edit">修改</button></td>
+                        <td><button class="btn btn-danger" name="delete">删除</button></td>
+                    </tr>
+                    <tr>
+                        <td>高二</td>
+                        <td>体育班</td>
+                        <td>高二体育班3班</td>
+                        <td>语文16节、数学16节、英语16节、历史10节</td>
+                        <td><button class="btn btn-info" name="edit">修改</button></td>
+                        <td><button class="btn btn-danger" name="delete">删除</button></td>
+                    </tr>
+                    <tr>
+                        <td>高二</td>
+                        <td>音乐班</td>
+                        <td>高二音乐班1班</td>
+                        <td>语文16节、数学16节、英语16节、历史10节</td>
+                        <td><button class="btn btn-info" name="edit">修改</button></td>
+                        <td><button class="btn btn-danger" name="delete">删除</button></td>
+                    </tr>
+                    <tr>
+                        <td>高二</td>
+                        <td>音乐班</td>
+                        <td>高二音乐班2班</td>
+                        <td>语文16节、数学16节、英语16节、历史10节</td>
+                        <td><button class="btn btn-info" name="edit">修改</button></td>
+                        <td><button class="btn btn-danger" name="delete">删除</button></td>
+                    </tr>
+                    <tr>
+                        <td>高二</td>
+                        <td>音乐班</td>
+                        <td>高二音乐班3班</td>
+                        <td>语文16节、数学16节、英语16节、历史10节</td>
+                        <td><button class="btn btn-info" name="edit">修改</button></td>
+                        <td><button class="btn btn-danger" name="delete">删除</button></td>
+                    </tr>
+                    <tr>
+                        <td>高二</td>
+                        <td>混合班</td>
+                        <td>高二混合班1班</td>
+                        <td>语文16节、数学16节、英语16节、历史10节</td>
+                        <td><button class="btn btn-info" name="edit">修改</button></td>
+                        <td><button class="btn btn-danger" name="delete">删除</button></td>
+                    </tr>
+                    <tr>
+                        <td>高二</td>
+                        <td>混合班</td>
+                        <td>高二混合班2班</td>
+                        <td>语文16节、数学16节、英语16节、历史10节</td>
+                        <td><button class="btn btn-info" name="edit">修改</button></td>
+                        <td><button class="btn btn-danger" name="delete">删除</button></td>
+                    </tr>
+                    <tr>
+                        <td>高三</td>
+                        <td>体育班</td>
+                        <td>高三体育班1班</td>
+                        <td>语文16节、数学16节、英语16节、历史10节</td>
+                        <td><button class="btn btn-info" name="edit">修改</button></td>
+                        <td><button class="btn btn-danger" name="delete">删除</button></td>
+                    </tr>
+                    <tr>
+                        <td>高三</td>
+                        <td>体育班</td>
+                        <td>高三体育班2班</td>
+                        <td>语文16节、数学16节、英语16节、历史10节</td>
+                        <td><button class="btn btn-info" name="edit">修改</button></td>
+                        <td><button class="btn btn-danger" name="delete">删除</button></td>
+                    </tr>
+                    <tr>
+                        <td>高三</td>
+                        <td>体育班</td>
+                        <td>高三体育班3班</td>
+                        <td>语文16节、数学16节、英语16节、历史10节</td>
+                        <td><button class="btn btn-info" name="edit">修改</button></td>
+                        <td><button class="btn btn-danger" name="delete">删除</button></td>
+                    </tr>
+                    <tr>
+                        <td>高三</td>
+                        <td>音乐班</td>
+                        <td>高三音乐班1班</td>
+                        <td>语文16节、数学16节、英语16节、历史10节</td>
+                        <td><button class="btn btn-info" name="edit">修改</button></td>
+                        <td><button class="btn btn-danger" name="delete">删除</button></td>
+                    </tr>
+                    <tr>
+                        <td>高三</td>
+                        <td>音乐班</td>
+                        <td>高三音乐班2班</td>
+                        <td>语文16节、数学16节、英语16节、历史10节</td>
+                        <td><button class="btn btn-info" name="edit">修改</button></td>
+                        <td><button class="btn btn-danger" name="delete">删除</button></td>
+                    </tr>
+                    <tr>
+                        <td>高三</td>
+                        <td>音乐班</td>
+                        <td>高三音乐班3班</td>
+                        <td>语文16节、数学16节、英语16节、历史10节</td>
+                        <td><button class="btn btn-info" name="edit">修改</button></td>
+                        <td><button class="btn btn-danger" name="delete">删除</button></td>
+                    </tr>
+                    <tr>
+                        <td>高三</td>
+                        <td>混合班</td>
+                        <td>高三混合班1班</td>
+                        <td>语文16节、数学16节、英语16节、历史10节</td>
+                        <td><button class="btn btn-info" name="edit">修改</button></td>
+                        <td><button class="btn btn-danger" name="delete">删除</button></td>
+                    </tr>
+                    <tr>
+                        <td>高三</td>
+                        <td>混合班</td>
+                        <td>高三混合班2班</td>
+                        <td>语文16节、数学16节、英语16节、历史10节</td>
+                        <td><button class="btn btn-info" name="edit">修改</button></td>
+                        <td><button class="btn btn-danger" name="delete">删除</button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="modal fade" id="edit_class_box" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div class="row">
+                        <h4 class="modal-title text-center" id="class_name"></h4>
+                    </div>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-2"></div>
+                        <div class="col-md-8">
+                            <h5>所属年级：</h5>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2"></div>
+                        <div id="grade_box" class="col-md-8">
+                            <div class="col-md-3">
+                                <input type="radio" id="chinese" name="grade" value="高一">
+                                <label for="chinese">高一</label>
+                            </div>
+                            <div class="col-md-3">
+                                <input type="radio" id="math" name="grade" value="高二">
+                                <label for="math">高二</label>
+                            </div>
+                            <div class="col-md-3">
+                                <input type="radio" id="english" name="grade" value="高三">
+                                <label for="chinese">高三</label>
+                            </div>
+                            <div class="col-md-3">
+                                <input type="radio" id="english" name="grade" value="补习班">
+                                <label for="chinese">补习班</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2"></div>
+                        <div class="col-md-8">
+                            <h5>所属班级类型：</h5>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2"></div>
+                        <div class="col-md-8" id="class_type_box">
+                            <div class="col-md-4">
+                                <input type="radio" id="header" name="class_type" value="音乐班">
+                                <label for="header">音乐班</label>
+                            </div>
+                            <div class="col-md-4">
+                                <input type="radio" id="normal_teacher" name="class_type" value="体育班">
+                                <label for="normal_teacher">体育班</label>
+                            </div>
+                            <div class="col-md-4">
+                                <input type="radio" id="normal_teacher" name="class_type" value="混合班">
+                                <label for="normal_teacher">混合班</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 li_top_min">
+                            <div class="input-group">
+                                <span class="input-group-addon">语文</span>
+                                <input id="chinese_hour" name="hour_number" type="number" class="form-control" aria-label="Amount (to the nearest dollar)">
+                                <span class="input-group-addon">节</span>
+                            </div>
+                        </div>
+                        <div class="col-md-6 li_top_min">
+                            <div class="input-group">
+                                <span class="input-group-addon">数学</span>
+                                <input id="math_hour" name="hour_number" type="number" class="form-control" aria-label="Amount (to the nearest dollar)">
+                                <span class="input-group-addon">节</span>
+                            </div>
+                        </div>
+                        <div class="col-md-6 li_top_min">
+                            <div class="input-group">
+                                <span class="input-group-addon">英语</span>
+                                <input id="english_hour" name="hour_number" type="number" class="form-control" aria-label="Amount (to the nearest dollar)">
+                                <span class="input-group-addon">节</span>
+                            </div>
+                        </div>
+                        <div class="col-md-6 li_top_min">
+                            <div class="input-group">
+                                <span class="input-group-addon">历史</span>
+                                <input id="history_hour" name="hour_number" type="number" class="form-control" aria-label="Amount (to the nearest dollar)">
+                                <span class="input-group-addon">节</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="row">
+                        <div class="col-md-2"></div>
+                        <div class="col-md-4">
+                            <button id="save_class_edit" class="form-control">保存</button>
+                        </div>
+                        <div class="col-md-4">
+                            <button id="quit" class="form-control">取消</button>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <h5 id="class_error_txt" class="text-center"></h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<script>
+    $(document).on('click','[name="delete"]',function () {
+        $(this).parent().parent().remove();
+    })
+    $(document).on('click','[name="edit"]',function () {
+        let class_name = $(this).parent().parent().children()[2].innerHTML;
+        $("#class_name").empty().append(class_name);
+        $("#edit_class_box").modal("show");
+        $(this).parent().parent().remove();
+    })
+    $("#save_class_edit").click(function () {
+        let class_name = $("#class_name").text();
+        let grade = $("[name='grade']:checked").val();
+        let class_type = $("[name='class_type']:checked").val();
+        let class_hour = '';
+        $("[name='hour_number']").each(function (index) {
+            let subject_name = $(this).prev().text();
+            let number = $(this).val();
+            console.log($("[name='hour_number']").length);
+            if(($("[name='hour_name']").length - 1) == index)
+            {
+                class_hour += subject_name + number + '节';
+            }else
+            {
+                console.log(index + subject_name + number);
+                class_hour += subject_name + number + '节' + '、';
+            }
+        })
+        if(grade != null && grade != '' && class_type != null && class_type != '')
+        {
+            $('tbody').append("<tr>\n" +
+            "                        <td>"+grade+"</td>\n" +
+            "                        <td>"+class_type+"</td>\n" +
+            "                        <td>"+class_name+"</td>\n" +
+            "                        <td>"+class_hour+"</td>\n" +
+            "                        <td><button class=\"btn btn-info\" name=\"edit\">修改</button></td>\n" +
+            "                        <td><button class=\"btn btn-danger\" name=\"delete\">删除</button></td>\n" +
+            "                    </tr>");
+            $("#edit_class_box").modal("hide");
+        }else
+        {
+            $("#class_error_txt").empty().append("请检查信息填写是否完整");
+        }
+    })
+    $("#quit").click(function () {
+        $("#edit_class_box").modal("hide");
+    })
+</script>
+</body>
+</html>

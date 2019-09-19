@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>输入教师信息</title>
+    <script src="../../static/js/jquery-3.3.1.min.js"></script>
+    <script src="../../static/js/bootstrap.js"></script>
+    <link rel="stylesheet" href="../../static/css/bootstrap.css">
+    <link rel="stylesheet" href="../../static/css/diy.css">
+</head>
+<body class="body_class">
+    <div class="row path_btn">
+        <div class="col-md-3"></div>
+        <div class="col-md-6">
+            <div class="col-md-2">
+                <button class="btn btn-default" aria-label="Right Align">输入课表信息
+                    <span class="glyphicon glyphicon-arrow-right" aria-hidden="false"></span>
+                </button>
+            </div>
+            <div class="col-md-2">
+                <button class="btn btn-default" aria-label="Right Align">输入课程信息
+                    <span class="glyphicon glyphicon-arrow-right" aria-hidden="false"></span>
+                </button>
+            </div>
+            <div class="col-md-2">
+                <button class="btn btn-info" aria-label="Right Align">输入教师信息
+                    <span class="glyphicon glyphicon-arrow-right" aria-hidden="false"></span>
+                </button>
+            </div>
+            <div class="col-md-2">
+                <button class="btn btn-default" aria-label="Right Align">输入班级信息
+                    <span class="glyphicon glyphicon-arrow-right" aria-hidden="false"></span>
+                </button>
+            </div>
+            <div class="col-md-2">
+                <button class="btn btn-default" aria-label="Right Align">输入排课规则
+                    <span class="glyphicon glyphicon-arrow-right" aria-hidden="false"></span>
+                </button>
+            </div>
+            <div class="col-md-2">
+                <button class="btn btn-default" aria-label="Right Align">开始排课
+                    <span class="glyphicon glyphicon-arrow-right" aria-hidden="false"></span>
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="row li_top_lg">
+        <h3 class="text-center">添加教师信息。</h3>
+    </div>
+    <div class="row li_top_lg">
+        <div class="col-md-2"></div>
+        <div class="col-md-1">
+            <button id="add_teacher" class="form-control btn btn-info">添加教师</button>
+        </div>
+    </div>
+    <div class="row li_top_min">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+            <table class="table table-bordered table_border_color">
+                <thead>
+                    <tr>
+                        <th>教师名称</th>
+                        <th>所教授课程</th>
+                        <th>所属教师组</th>
+                        <th>修改</th>
+                        <th>删除</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="modal fade" id="add_teacher_box" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title text-center">添加教师</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-2"></div>
+                        <div class="col-md-8">
+                            <div class="input-group">
+                                <span class="input-group-addon">教师名称：</span>
+                                <input id="teacher_name" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2"></div>
+                        <div class="col-md-8">
+                            <h5>所教授课程：</h5>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2"></div>
+                        <div class="col-md-8">
+                            <div class="col-md-3">
+                                <input type="checkbox" id="chinese" name="subject_ck" value="语文">
+                                <label for="chinese">语文</label>
+                            </div>
+                            <div class="col-md-3">
+                                <input type="checkbox" id="math" name="subject_ck" value="数学">
+                                <label for="math">数学</label>
+                            </div>
+                            <div class="col-md-3">
+                                <input type="checkbox" id="english" name="subject_ck" value="英语">
+                                <label for="chinese">英语</label>
+                            </div>
+                            <div class="col-md-3">
+                                <input type="checkbox" id="history" name="subject_ck" value="历史">
+                                <label for="history">历史</label>
+                            </div>
+                            <div class="col-md-3">
+                                <input type="checkbox" id="geography" name="subject_ck" value="地理">
+                                <label for="geography">地理</label>
+                            </div>
+                            <div class="col-md-3">
+                                <input type="checkbox" id="politics" name="subject_ck" value="政治">
+                                <label for="politics">政治</label>
+                            </div>
+                            <div class="col-md-3">
+                                <input type="checkbox" id="sports" name="subject_ck" value="体育">
+                                <label for="sports">体育</label>
+                            </div>
+                            <div class="col-md-3">
+                                <input type="checkbox" id="major" name="subject_ck" value="专业">
+                                <label for="major">专业</label>
+                            </div>
+                            <div class="col-md-3">
+                                <input type="checkbox" id="cleaning" name="subject_ck" value="扫除">
+                                <label for="cleaning">扫除</label>
+                            </div>
+                            <div class="col-md-3">
+                                <input type="checkbox" id="self_study" name="subject_ck" value="自习">
+                                <label for="self_study">自习</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2"></div>
+                        <div class="col-md-8">
+                            <h5>所属教师组：</h5>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2"></div>
+                        <div class="col-md-8" id="teacher_group_box">
+                            <div class="col-md-4">
+                                <input type="radio" id="header" name="teacher_group" value="领导">
+                                <label for="header">领导</label>
+                            </div>
+                            <div class="col-md-4">
+                                <input type="radio" id="normal_teacher" name="teacher_group" value="普通教师">
+                                <label for="normal_teacher">普通教师</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4"></div>
+                        <div class="col-md-4">
+                                <button id="add_teacher_group" class="form-control">+</button>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2"></div>
+                        <div class="col-md-8">
+                            <h5>教师组用于对将有特殊排课需求的教师与普通教师区分，为特殊教师分配不同的教师组，以便于满足特殊教师的排课安排。点击带+号的按钮，可添加更多教师组。</h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="row">
+                        <div class="col-md-2"></div>
+                        <div class="col-md-4">
+                            <button id="teacher_go_on" class="form-control">保存并继续</button>
+                        </div>
+                        <div class="col-md-4">
+                            <button id="teacher_save_end" class="form-control">保存</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="add_teacher_group_box" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title text-center">添加教师组</h5>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-2"></div>
+                        <div class="col-md-8">
+                            <div class="input-group">
+                                <span class="input-group-addon">教师组名称：</span>
+                                <input id="teacher_group_name" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="row">
+                        <div class="col-md-2"></div>
+                        <div class="col-md-4">
+                            <button id="teacher_group_go_on" class="form-control">保存并继续</button>
+                        </div>
+                        <div class="col-md-4">
+                            <button id="teacher_group_save_end" class="form-control">保存</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<script>
+    $("#add_teacher").click(function () {
+        $("#add_teacher_box").modal({
+            show:true,
+            backdrop:'static',
+            keyboard:false
+        });
+    })
+    $("#add_teacher_group").click(function () {
+        $("#add_teacher_group_box").modal({
+            show:true,
+            backdrop:'static',
+            keyboard:false
+        });
+    })
+    $("#teacher_group_go_on").click(function () {
+        let teacher_group_name = $("#teacher_group_name").val();
+        if(teacher_group_name != '' && teacher_group_name != null)
+        {
+           $("#teacher_group_box").append("<div class='col-md-4'>" +
+               "<input type='radio' id='" + teacher_group_name + "' name='teacher_group' value='" + teacher_group_name + "'>" +
+               "<label for='normal_teacher'>" + teacher_group_name + "</label>" +
+               "</div>")
+           $("#teacher_group_name").val("");
+        }else
+        {
+            $("#add_teacher_group_box").modal("hide");
+        }
+    })
+    $("#teacher_group_save_end").click(function () {
+        let teacher_group_name = $("#teacher_group_name").val();
+        if(teacher_group_name != '' && teacher_group_name != null)
+        {
+           $("#teacher_group_box").append("<div class='col-md-4'>" +
+               "<input type='radio' id='" + teacher_group_name + "' name='teacher_group' value='" + teacher_group_name + "'>" +
+               "<label for='normal_teacher'>" + teacher_group_name + "</label>" +
+               "</div>")
+           $("#teacher_group_name").val("");
+           $("#add_teacher_group_box").modal("hide");
+        }else
+        {
+           $("#add_teacher_group_box").modal("hide");
+        }
+    })
+    $("#teacher_go_on").click(function () {
+        let teacher_name = $("#teacher_name").val();
+        let subject_lenght = $("[name='subject_ck']:checked").length;
+        let subjects = '';
+        let teacher_group = $("[name='teacher_group']:checked").val();
+        if(teacher_name != "" && teacher_name != null && subject_lenght > 0 && teacher_group != '' && teacher_group != null)
+        {
+            $("[name='subject_ck']:checked").each(function (index) {
+                if(subject_lenght - 1 == index)
+                {
+                    subjects += $(this).val();
+                }else
+                {
+                    subjects += $(this).val() + '、';
+                }
+            })
+            let tr = "<tr>" +
+                "<td>" + teacher_name + "</td>" +
+                "<td>" + subjects + "</td>" +
+                "<td>" + teacher_group + "</td>" +
+                "<td><button name='edit' class='btn btn-info'>修改</button></td>" +
+                "<td><button name='delete' class='btn btn-danger'>删除</button></td>" +
+                "</tr>";
+            $("tbody").append(tr);
+            $("#teacher_name").val("");
+            //$("[name='subject_ck']:checked").each(function () {
+            //    $(this).attr('checked',false);
+            //})
+            //$("[name='teacher_group']").removeAttr('checked');
+        }else
+        {
+            $("#add_teacher_box").modal("hide");
+        }
+    })
+    $("#teacher_save_end").click(function () {
+        let teacher_name = $("#teacher_name").val();
+        let subject_lenght = $("[name='subject_ck']:checked").length;
+        let subjects = '';
+        let teacher_group = $("[name='teacher_group']:checked").val();
+        if(teacher_name != "" && teacher_name != null && subject_lenght > 0 && teacher_group != '' && teacher_group != null)
+        {
+            $("[name='subject_ck']:checked").each(function (index) {
+                if(subject_lenght - 1 == index)
+                {
+                    subjects += $(this).val();
+                }else
+                {
+                    subjects += $(this).val() + '、';
+                }
+            })
+            let tr = "<tr>" +
+                "<td>" + teacher_name + "</td>" +
+                "<td>" + subjects + "</td>" +
+                "<td>" + teacher_group + "</td>" +
+                "<td><button name='edit' class='btn btn-info'>修改</button></td>" +
+                "<td><button name='delete' class='btn btn-danger'>删除</button></td>" +
+                "</tr>";
+            $("tbody").append(tr);
+            $("#teacher_name").val("");
+            $("#add_teacher_box").modal("hide");
+            //$("[name='subject_ck']:checked").each(function () {
+            //    $(this).attr('checked',false);
+            //})
+            //$("[name='teacher_group']").removeAttr('checked');
+        }else
+        {
+            $("#add_teacher_box").modal("hide");
+        }
+    })
+    $(document).on('click','[name="delete"]',function () {
+        $(this).parent().parent().remove();
+    })
+    $(document).on('click','[name="edit"]',function () {
+        let teacher_name = $(this).parent().parent().children()[0].innerHTML;
+        $("#add_teacher_box").modal("show");
+        $("#teacher_name").val(teacher_name);
+        $(this).parent().parent().remove();
+    })
+</script>
+</body>
+</html>

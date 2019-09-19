@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>分配课程及课时</title>
+    <script src="../../static/js/jquery-3.3.1.min.js"></script>
+    <script src="../../static/js/bootstrap.js"></script>
+    <link rel="stylesheet" href="../../static/css/bootstrap.css">
+    <link rel="stylesheet" href="../../static/css/diy.css">
+</head>
+<body class="body_class">
+    <div class="row path_btn">
+        <div class="col-md-3"></div>
+        <div class="col-md-6">
+            <div class="col-md-2">
+                <button class="btn btn-default" aria-label="Right Align">输入课表信息
+                    <span class="glyphicon glyphicon-arrow-right" aria-hidden="false"></span>
+                </button>
+            </div>
+            <div class="col-md-2">
+                <button class="btn btn-default" aria-label="Right Align">输入课程信息
+                    <span class="glyphicon glyphicon-arrow-right" aria-hidden="false"></span>
+                </button>
+            </div>
+            <div class="col-md-2">
+                <button class="btn btn-default" aria-label="Right Align">输入教师信息
+                    <span class="glyphicon glyphicon-arrow-right" aria-hidden="false"></span>
+                </button>
+            </div>
+            <div class="col-md-2">
+                <button class="btn btn-info" aria-label="Right Align">输入班级信息
+                    <span class="glyphicon glyphicon-arrow-right" aria-hidden="false"></span>
+                </button>
+            </div>
+            <div class="col-md-2">
+                <button class="btn btn-default" aria-label="Right Align">输入排课规则
+                    <span class="glyphicon glyphicon-arrow-right" aria-hidden="false"></span>
+                </button>
+            </div>
+            <div class="col-md-2">
+                <button class="btn btn-default" aria-label="Right Align">开始排课
+                    <span class="glyphicon glyphicon-arrow-right" aria-hidden="false"></span>
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="row path_btn">
+        <div class="col-md-4"></div>
+        <div class="col-md-4">
+            <div class="col-md-4">
+                <button class="btn btn-default" aria-label="Right Align">添加班级
+                    <span class="glyphicon glyphicon-arrow-right" aria-hidden="false"></span>
+                </button>
+            </div>
+            <div class="col-md-4">
+                <button class="btn btn-info" aria-label="Right Align">分配课程及课时
+                    <span class="glyphicon glyphicon-arrow-right" aria-hidden="false"></span>
+                </button>
+            </div>
+            <div class="col-md-4">
+                <button class="btn btn-default" aria-label="Right Align">班级信息及调整
+                    <span class="glyphicon glyphicon-arrow-right" aria-hidden="false"></span>
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="row li_top_lg">
+        <div class="col-md-2"></div>
+        <div class="col-md-3 path_btn">
+            <div class="col-md-10 path_btn">
+			<div class="panel-group" id="class_box">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						 <p name="class_name_div" class="panel-title" data-toggle="collapse" data-parent="#class_box" href="#grade_1_class_type_box">高一</p>
+					</div>
+					<div id="grade_1_class_type_box" class="panel-collapse collapse">
+						<div name="class_name_div" class="panel-body">
+							高一音乐班
+						</div>
+                        <div name="class_name_div" class="panel-body">
+							高一体育班
+						</div>
+                        <div name="class_name_div" class="panel-body">
+							高一混合班
+						</div>
+					</div>
+				</div>
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						 <p name="class_name_div" class="panel-title" data-toggle="collapse" data-parent="#class_box" href="#grade_2_class_type_box">高二</p>
+					</div>
+					<div id="grade_2_class_type_box" class="panel-collapse collapse">
+						<div name="class_name_div" class="panel-body">
+							高二音乐班
+						</div>
+                        <div name="class_name_div" class="panel-body">
+							高二体育班
+						</div>
+                        <div name="class_name_div" class="panel-body">
+							高二混合班
+						</div>
+					</div>
+				</div>
+                <div class="panel panel-default">
+					<div class="panel-heading">
+						 <p name="class_name_div" class="panel-title" data-toggle="collapse" data-parent="#class_box" href="#grade_3_class_type_box">高三</p>
+					</div>
+					<div id="grade_3_class_type_box" class="panel-collapse collapse">
+						<div name="class_name_div" class="panel-body">
+							高三音乐班
+						</div>
+                        <div name="class_name_div" class="panel-body">
+							高三体育班
+						</div>
+                        <div name="class_name_div" class="panel-body">
+							高三混合班
+						</div>
+					</div>
+				</div>
+			</div>
+        </div>
+        </div>
+        <div id="class_hour_box" style="display: none;" class="col-md-5 li_top_lg">
+            <div class="row path_btn">
+                <h4 class="text-center" id="class_type_name"></h4>
+            </div>
+            <div class="row li_top_min">
+                <h5 class="text-center">空格内不填写，则表示不分配该课程。</h5>
+            </div>
+            <div class="row path_btn">
+                <div class="col-md-6 li_top_min">
+                    <div class="input-group">
+                        <span class="input-group-addon">语文</span>
+                        <input id="chinese_hour" name="hour_number" type="number" class="form-control" aria-label="Amount (to the nearest dollar)">
+                        <span class="input-group-addon">节</span>
+                    </div>
+                </div>
+                <div class="col-md-6 li_top_min">
+                    <div class="input-group">
+                        <span class="input-group-addon">数学</span>
+                        <input id="math_hour" name="hour_number" type="number" class="form-control" aria-label="Amount (to the nearest dollar)">
+                        <span class="input-group-addon">节</span>
+                    </div>
+                </div>
+                <div class="col-md-6 li_top_min">
+                    <div class="input-group">
+                        <span class="input-group-addon">英语</span>
+                        <input id="english_hour" name="hour_number" type="number" class="form-control" aria-label="Amount (to the nearest dollar)">
+                        <span class="input-group-addon">节</span>
+                    </div>
+                </div>
+                <div class="col-md-6 li_top_min">
+                    <div class="input-group">
+                        <span class="input-group-addon">历史</span>
+                        <input id="history_hour" name="hour_number" type="number" class="form-control" aria-label="Amount (to the nearest dollar)">
+                        <span class="input-group-addon">节</span>
+                    </div>
+                </div>
+            </div>
+            <div class="row path_btn">
+                <div class="col-md-5"></div>
+                <div class="col-md-2">
+                    <button class="form-control btn btn-info" id="save">保存</button>
+                </div>
+            </div>
+        </div>
+    </div>
+<script>
+    $("[name='class_name_div']").click(function () {
+        let class_type_name = $(this).text();
+        $("#class_hour_box").css('display','block');
+        $("#class_type_name").empty().append(class_type_name);
+    })
+    $("#save").click(function () {
+        $("[name='hour_number']").val("");
+        $("#class_hour_box").css('display','none');
+    })
+</script>
+</body>
+</html>

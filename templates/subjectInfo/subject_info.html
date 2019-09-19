@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>输入课程信息</title>
+    <script src="../../static/js/jquery-3.3.1.min.js"></script>
+    <script src="../../static/js/bootstrap.js"></script>
+    <link rel="stylesheet" href="../../static/css/bootstrap.css">
+    <link rel="stylesheet" href="../../static/css/diy.css">
+</head>
+<body class="body_class">
+    <div class="row path_btn">
+        <div class="col-md-3"></div>
+        <div class="col-md-6">
+            <div class="col-md-2">
+                <button class="btn btn-default" aria-label="Right Align">输入课表信息
+                    <span class="glyphicon glyphicon-arrow-right" aria-hidden="false"></span>
+                </button>
+            </div>
+            <div class="col-md-2">
+                <button class="btn btn-info" aria-label="Right Align">输入课程信息
+                    <span class="glyphicon glyphicon-arrow-right" aria-hidden="false"></span>
+                </button>
+            </div>
+            <div class="col-md-2">
+                <button class="btn btn-default" aria-label="Right Align">输入教师信息
+                    <span class="glyphicon glyphicon-arrow-right" aria-hidden="false"></span>
+                </button>
+            </div>
+            <div class="col-md-2">
+                <button class="btn btn-default" aria-label="Right Align">输入班级信息
+                    <span class="glyphicon glyphicon-arrow-right" aria-hidden="false"></span>
+                </button>
+            </div>
+            <div class="col-md-2">
+                <button class="btn btn-default" aria-label="Right Align">输入排课规则
+                    <span class="glyphicon glyphicon-arrow-right" aria-hidden="false"></span>
+                </button>
+            </div>
+            <div class="col-md-2">
+                <button class="btn btn-default" aria-label="Right Align">开始排课
+                    <span class="glyphicon glyphicon-arrow-right" aria-hidden="false"></span>
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="row li_top_lg">
+        <h3 class="text-center">添加所有需在课程表上出现的课程，包括大扫除、专业课等。可点击右方带有加号的按钮添加课程，点击X号按钮可删除对应课程。</h3>
+    </div>
+    <div class="row li_top_lg">
+        <div class="col-md-2"></div>
+        <div class="col-md-8" id="subject_box">
+            <div class="col-md-2 li_top_min">
+                <div class="input-group">
+                    <input type="button" class="form-control" aria-label="Amount (to the nearest dollar)" value="语文">
+                    <span name="delete_subject" class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+                </div>
+            </div>
+            <div class="col-md-2 li_top_min">
+                <div class="input-group">
+                    <input type="button" class="form-control" aria-label="Amount (to the nearest dollar)" value="数学">
+                    <span name="delete_subject" class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+                </div>
+            </div>
+            <div class="col-md-2 li_top_min">
+                <div class="input-group">
+                    <input type="button" class="form-control" aria-label="Amount (to the nearest dollar)" value="英语">
+                    <span name="delete_subject" class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+                </div>
+            </div>
+            <div class="col-md-2 li_top_min">
+                <div class="input-group">
+                    <input type="button" class="form-control" aria-label="Amount (to the nearest dollar)" value="历史">
+                    <span name="delete_subject" class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+                </div>
+            </div>
+            <div class="col-md-2 li_top_min">
+                <div class="input-group">
+                    <input type="button" class="form-control" aria-label="Amount (to the nearest dollar)" value="地理">
+                    <span name="delete_subject" class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+                </div>
+            </div>
+            <div class="col-md-2 li_top_min">
+                <div class="input-group">
+                    <input type="button" class="form-control" aria-label="Amount (to the nearest dollar)" value="政治">
+                    <span name="delete_subject" class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+                </div>
+            </div>
+            <div class="col-md-2 li_top_min">
+                <div class="input-group">
+                    <input type="button" class="form-control" aria-label="Amount (to the nearest dollar)" value="体育">
+                    <span name="delete_subject" class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+                </div>
+            </div>
+            <div class="col-md-2 li_top_min">
+                <div class="input-group">
+                    <input type="button" class="form-control" aria-label="Amount (to the nearest dollar)" value="专业">
+                    <span name="delete_subject" class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+                </div>
+            </div>
+            <div class="col-md-2 li_top_min">
+                <div class="input-group">
+                    <input type="button" class="form-control" aria-label="Amount (to the nearest dollar)" value="扫除">
+                    <span name="delete_subject" class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+                </div>
+            </div>
+            <div class="col-md-2 li_top_min">
+                <div class="input-group">
+                    <input type="button" class="form-control" aria-label="Amount (to the nearest dollar)" value="自习">
+                    <span name="delete_subject" class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row li_top_lg">
+        <div class="col-md-5"></div>
+        <div class="col-md-2">
+            <input id="add_subject" type="button" class="form-control" value="+">
+        </div>
+    </div>
+    <div class="row li_top_lg"></div>
+    <div class="row li_top_lg"></div>
+    <div id="add_subject_box" style="display: none;">
+        <div class="row li_top_lg">
+            <div class="col-md-4"></div>
+            <div class="col-md-4">
+                <div class="input-group">
+                    <span class="input-group-addon">课程名称:</span>
+                    <input id="subject_name" class="form-control">
+                </div>
+            </div>
+        </div>
+        <div class="row li_top_min">
+            <div class="col-md-5"></div>
+            <div class="col-md-1">
+                <button id="go_on" class="form-control">保存并继续添加</button>
+            </div>
+            <div class="col-md-1">
+                <button id="save_end" class="form-control">保存</button>
+            </div>
+        </div>
+        <div class="row li_top_min">
+            <div class="col-md-5"></div>
+            <div class="col-md-2">
+                <h3 class="text-center" id="error_txt"></h3>
+            </div>
+        </div>
+    </div>
+    <script>
+        $(document).on('click','[name="delete_subject"]',function () {
+            $(this).parent().parent().remove();
+        })
+        $("#add_subject").click(function () {
+            $("#add_subject_box").css('display','block');
+        })
+        $("#go_on").click(function () {
+            let subject_name = $("#subject_name").val();
+            if(subject_name != '' && subject_name != null)
+            {
+                let subject_str = "<div class='col-md-2 li_top_min'>" +
+                    "<div class='input-group'>" +
+                    "<input type='button' class='form-control' aria-label='Amount (to the nearest dollar)' value='" + subject_name + "'>\n" +
+                    "<span name='delete_subject' class='input-group-addon'><span class='glyphicon glyphicon-remove'></span></span>\n" +
+                    "</div>\n" +
+                    "</div>";
+                $("#subject_name").val("");
+                $("#subject_box").append(subject_str);
+            }else
+            {
+                $("#error_txt").append("请输入课程名称")
+            }
+        })
+        $("#save_end").click(function () {
+            let subject_name = $("#subject_name").val();
+            if(subject_name != '' && subject_name != null)
+            {
+                let subject_str = "<div class='col-md-2 li_top_min'>" +
+                    "<div class='input-group'>" +
+                    "<input type='button' class='form-control' aria-label='Amount (to the nearest dollar)' value='" + subject_name + "'>\n" +
+                    "<span name='delete_subject' class='input-group-addon'><span class='glyphicon glyphicon-remove'></span></span>\n" +
+                    "</div>\n" +
+                    "</div>";
+                $("#subject_name").val("");
+                $("#subject_box").append(subject_str);
+                $("#add_subject_box").css('display','none');
+            }else
+            {
+                $("#error_txt").append("请输入课程名称")
+            }
+        })
+    </script>
+</body>
+</html>

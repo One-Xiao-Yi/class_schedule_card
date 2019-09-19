@@ -1,0 +1,44 @@
+.body_class
+{
+    background-color: #afd9ee;
+    width: 100%;
+    height: 100%;
+    overflow-x: hidden;
+}
+.path_btn
+{
+    margin-top: 5%;
+}
+.li_top_lg
+{
+    margin-top: 30px;
+}
+.li_top_min
+{
+    margin-top: 10px;
+}
+.table_border_color
+{
+    border: 1px solid black;
+}
+.table_border_color>tr
+{
+    border: 1px solid black;
+}
+.table_border_color>tr>th
+{
+    border: 1px solid black;
+}
+.table_border_color>tr>td
+{
+    border: 1px solid black;
+}
+.button_padding_left
+{
+    padding-left: 20px;
+}
+.span_size
+{
+    height: 100%;
+    width: 50px;
+}
