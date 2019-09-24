@@ -46,11 +46,25 @@
         </div>
     </div>
     <div class="row li_top_lg">
-        <h3 class="text-center">设置每周上课天数，以及每天课时。</h3>
+        <h3 class="text-center">设置每周上课天数，以及每天课时。每年上半年为第1学期，下半年为第2学期。</h3>
     </div>
     <div class="row li_top_min">
         <div class="col-md-2"></div>
         <div class="col-md-8">
+            <div class="col-md-4">
+                <div class="input-group">
+                    <span class="input-group-addon">20</span>
+                    <input id="year" type="number" class="form-control" aria-label="Amount (to the nearest dollar)">
+                    <span class="input-group-addon">年</span>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="input-group">
+                    <span class="input-group-addon">第</span>
+                    <input id="order" type="number" class="form-control" aria-label="Amount (to the nearest dollar)">
+                    <span class="input-group-addon">学期</span>
+                </div>
+            </div>
             <div class="col-md-4">
                 <div class="input-group">
                     <span class="input-group-addon">每周</span>
@@ -58,6 +72,11 @@
                     <span class="input-group-addon">天</span>
                 </div>
             </div>
+        </div>
+    </div>
+    <div class="row li_top_min">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
             <div class="col-md-4">
                 <div class="input-group">
                     <span class="input-group-addon">每天早读</span>
@@ -72,11 +91,6 @@
                     <span class="input-group-addon">节</span>
                 </div>
             </div>
-        </div>
-    </div>
-    <div class="row li_top_min">
-        <div class="col-md-2"></div>
-        <div class="col-md-8">
             <div class="col-md-4">
                 <div class="input-group">
                     <span class="input-group-addon">每天下午</span>
@@ -84,6 +98,11 @@
                     <span class="input-group-addon">节</span>
                 </div>
             </div>
+        </div>
+    </div>
+    <div class="row li_top_min">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
             <div class="col-md-4">
                 <div class="input-group">
                     <span class="input-group-addon">每天晚读</span>
@@ -104,13 +123,23 @@
         </div>
     </div>
     <div id="submit_box" class="row li_top_min" style="text-align: center"></div>
+    <a href="/turn_subject"><span id="turn"></span></a>
     <script>
+        let days = '';
+        let early = '';
+        let morning = '';
+        let afternoon = '';
+        let night = '';
+        let year = '';
+        let order = '';
         $("#create_table").click(function () {
-            let days = $("#days").val();
-            let early = $("#early").val();
-            let morning = $("#morning").val();
-            let afternoon = $("#afternoon").val();
-            let night = $("#night").val();
+            year = $("#year").val();
+            order = $("#order").val();
+            days = $("#days").val();
+            early = $("#early").val();
+            morning = $("#morning").val();
+            afternoon = $("#afternoon").val();
+            night = $("#night").val();
             let check = true;
             let week = "";
             switch (days) {
@@ -250,8 +279,25 @@
             $("#null_table").empty().append(week);
             if(check)
             {
-                $("#submit_box").empty().append("<button class='btn btn-info'>保存课表信息</button>")
+                $("#submit_box").empty().append("<button id='save_table' class='btn btn-info'>下一步</button>")
             }
+        })
+        $(document).on('click','#save_table',function () {
+            $.ajax(
+                {
+                    url: /save_table_info/,
+                    type: "POST",
+                    data: JSON.stringify({'year':year, 'order':order, 
+                        'days':days, 'early':early, 'morning':morning, 
+                    'afternoon':afternoon, 'night':night}),
+                    success: function (data) {
+                        if(data.status == 200)
+                        {
+                            $("#turn").click();
+                        }
+                    }
+                }
+            )
         })
     </script>
 </body>

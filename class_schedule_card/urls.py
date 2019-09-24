@@ -15,7 +15,31 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from automatic_card.turn_views import *
+from automatic_card.class_normal_views import *
+from automatic_card.teacher_views import *
+from automatic_card.other_views import *
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('home/', home),
+    path('start_input/', start_input),
+    path('save_table_info/', receive_table_info),
+    path('turn_subject/', turn_subject),
+    path('save_subject_info/', receive_subject_info),
+    path('delete_subject/', delete_subject),
+    path('turn_teacher/', turn_teacher),
+    path('save_teacher_group_info/', receive_teacher_group_info),
+    path('save_grade_info/', receive_grade_info),
+    path('save_teacher_info/', receive_teacher_info),
+    path('update_teacher/', update_teacher_info),
+    path('delete_teacher/', delete_teacher),
+    path('turn_class/', turn_class),
+    path('save_class_type_info/', receive_class_type_info),
+    path('save_class_info/', receive_class_info),
+    path('turn_class_hour/', turn_class_hour),
+    path('save_subject_hour_info/', receive_subject_hour_info),
+    path('turn_class_edit/', turn_class_edit),
+    path('delete_class_normal/', delete_class_normal),
+    path('update_class_normal/', update_class_normal),
 ]

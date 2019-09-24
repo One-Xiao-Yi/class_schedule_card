@@ -84,6 +84,16 @@
                     </tr>
                 </thead>
                 <tbody>
+                {% if has_class %}
+                    {% for class_normal in class_normals %}
+                        <tr>
+                            <td>{{ class_normal.class_name }}</td>
+                            <td>{{ class_normal.class_type.type_name }}</td>
+                            <td>{{ class_normal.class_grade.grade_name }}</td>
+                            <td><button name="delete" class="btn btn-danger">删除</button></td>
+                        </tr>
+                    {% endfor %}
+                {% endif %}
                 </tbody>
             </table>
         </div>
@@ -112,28 +122,12 @@
                     <div class="row">
                         <div class="col-md-2"></div>
                         <div id="grade_box" class="col-md-8">
+                            {% for grade in grades %}
                             <div class="col-md-3">
-                                <input type="radio" id="chinese" name="grade" value="高一">
-                                <label for="chinese">高一</label>
+                                <input type="radio" id="{{ grade.grade_name }}" name="grade" value="{{ grade.grade_name }}">
+                                <label for="{{ grade.grade_name }}">{{ grade.grade_name }}</label>
                             </div>
-                            <div class="col-md-3">
-                                <input type="radio" id="math" name="grade" value="高二">
-                                <label for="math">高二</label>
-                            </div>
-                            <div class="col-md-3">
-                                <input type="radio" id="english" name="grade" value="高三">
-                                <label for="chinese">高三</label>
-                            </div>
-                            <div class="col-md-3">
-                                <input type="radio" id="english" name="grade" value="补习班">
-                                <label for="chinese">补习班</label>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-4"></div>
-                        <div class="col-md-4">
-                                <button id="add_grade" class="form-control">+</button>
+                            {% endfor %}
                         </div>
                     </div>
                     <div class="row">
@@ -145,18 +139,12 @@
                     <div class="row">
                         <div class="col-md-2"></div>
                         <div class="col-md-8" id="class_type_box">
+                            {% for class_type in class_types %}
                             <div class="col-md-4">
-                                <input type="radio" id="header" name="class_type" value="音乐班">
-                                <label for="header">音乐班</label>
+                                <input type="radio" id="{{ class_type.type_name }}" name="class_type" value="{{ class_type.type_name }}">
+                                <label for="{{ class_type.type_name }}">{{ class_type.type_name }}</label>
                             </div>
-                            <div class="col-md-4">
-                                <input type="radio" id="normal_teacher" name="class_type" value="体育班">
-                                <label for="normal_teacher">体育班</label>
-                            </div>
-                            <div class="col-md-4">
-                                <input type="radio" id="normal_teacher" name="class_type" value="混合班">
-                                <label for="normal_teacher">混合班</label>
-                            </div>
+                            {% endfor %}
                         </div>
                     </div>
                     <div class="row">
@@ -192,40 +180,6 @@
             </div>
         </div>
     </div>
-    <div class="modal fade" id="add_grade_box" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title text-center">添加年级</h5>
-                </div>
-                <div class="modal-body">
-                    <div class="row">
-                        <div class="col-md-2"></div>
-                        <div class="col-md-8">
-                            <div class="input-group">
-                                <span class="input-group-addon">年级名称：</span>
-                                <input id="grade_name" class="form-control">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <div class="row">
-                        <div class="col-md-2"></div>
-                        <div class="col-md-4">
-                            <button id="grade_go_on" class="form-control">保存并继续</button>
-                        </div>
-                        <div class="col-md-4">
-                            <button id="grade_save_end" class="form-control">保存</button>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <h5 id="grade_error_txt" class="text-center"></h5>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
     <div class="modal fade" id="add_class_type_box" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -250,7 +204,7 @@
                             <button id="class_type_go_on" class="form-control">保存并继续</button>
                         </div>
                         <div class="col-md-4">
-                            <button id="class_type_save_end" class="form-control">保存</button>
+                            <button id="class_type_save_end" class="form-control">取消</button>
                         </div>
                     </div>
                     <div class="row">
@@ -260,74 +214,51 @@
             </div>
         </div>
     </div>
+    <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+            <div class="col-md-4"></div>
+            <div class="col-md-4">
+                <button id="save_class" class="form-control btn btn-info">下一步</button>
+            </div>
+        </div>
+    </div>
+    <a href="/turn_class_hour"><span id="turn"></span></a>
 <script>
     $("#add_class").click(function () {
         $("#add_class_box").modal("show");
     })
-    $("#add_grade").click(function () {
-        $("#add_grade_box").modal("show");
-    })
     $("#add_class_type").click(function () {
         $("#add_class_type_box").modal("show");
-    })
-    $("#grade_go_on").click(function () {
-        let grade_name = $("#grade_name").val();
-        if(grade_name != "" && grade_name != null)
-        {
-            $("#grade_box").append("<div class=\"col-md-3\">\n" +
-                "                                <input type=\"radio\" id='"+grade_name+"' name=\"grade\" value='" + grade_name + "'>\n" +
-                "                                <label for='"+grade_name+"'>" + grade_name + "</label>\n" +
-                "                            </div>")
-            $("#grade_name").val("");
-        }else
-        {
-            $("#grade_error_txt").append("请输入年级名称");
-        }
-    })
-    $("#grade_save_end").click(function () {
-        let grade_name = $("#grade_name").val();
-        if(grade_name != "" && grade_name != null)
-        {
-            $("#grade_box").append("<div class=\"col-md-3\">\n" +
-                "                                <input type=\"radio\" id='"+grade_name+"' name=\"grade\" value='" + grade_name + "'>\n" +
-                "                                <label for='"+grade_name+"'>" + grade_name + "</label>\n" +
-                "                            </div>")
-            $("#grade_name").val("");
-            $("#add_grade_box").modal("hide");
-        }else
-        {
-            $("#add_grade_box").modal("hide");
-        }
     })
     $("#class_type_go_on").click(function () {
         let class_type_name = $("#class_type_name").val();
         if(class_type_name != "" && class_type_name != null)
         {
-            $("#class_type_box").append("<div class=\"col-md-3\">\n" +
-                "                                <input type=\"radio\" id='"+class_type_name+"' name=\"class_type\" value='" + class_type_name + "'>\n" +
-                "                                <label for='"+class_type_name+"'>" + class_type_name + "</label>\n" +
-                "                            </div>")
-            $("#class_type_name").val("");
+            $.ajax(
+                {
+                    url: /save_class_type_info/,
+                    type: 'POST',
+                    data: {'class_type_name': class_type_name},
+                    success: function (data) {
+                        if(data.status == 200)
+                        {
+                            $("#class_type_box").append("<div class=\"col-md-4\">\n" +
+                                "                                <input type=\"radio\" id='"+class_type_name+"' name=\"class_type\" value='" + class_type_name + "'>\n" +
+                                "                                <label for='"+class_type_name+"'>" + class_type_name + "</label>\n" +
+                                "                            </div>")
+                            $("#class_type_name").val("");
+                        }
+                    }
+                }
+            )
         }else
         {
             $("#class_type_error_txt").append("请输入班级类型名称");
         }
     })
     $("#class_type_save_end").click(function () {
-        let class_type_name = $("#class_type_name").val();
-        if(class_type_name != "" && class_type_name != null)
-        {
-            $("#class_type_box").append("<div class=\"col-md-3\">\n" +
-                "                                <input type=\"radio\" id='"+class_type_name+"' name=\"class_type\" value='" + class_type_name + "'>\n" +
-                "                                <label for='"+class_type_name+"'>" + class_type_name + "</label>\n" +
-                "                            </div>")
-            $("#class_type_name").val("");
-            $("#add_class_type_box").modal("hide");
-        }else
-        {
-            $("#class_type_error_txt").val("请输入班级类型名称");
-            $("#add_class_type_box").modal("hide");
-        }
+        $("#add_class_type_box").modal("hide");
     })
     $("#class_go_on").click(function () {
         let grade = $("[name='grade']:checked").val();
@@ -335,21 +266,33 @@
         let class_number = $("#class_number").val();
         if(grade != '' && grade != null && class_type != null && class_type != '' && Number(class_number) > 0)
         {
-            let trs = '';
-            for(let i=1;i<=Number(class_number);i++)
-            {
-               trs += "<tr>\n" +
-                "                        <td>"+grade+class_type+i+"班</td>\n" +
-                "                        <td>"+class_type+"</td>\n" +
-                "                        <td>"+grade+"</td>\n" +
-                "                        <td><button name=\"delete\" class=\"btn btn-danger\">删除</button></td>\n" +
-                "                    </tr>"
-            }
-            $('tbody').append(trs);
-            $("#class_number").val("");
+            $.ajax(
+                {
+                    url: /save_class_info/,
+                    type: 'POST',
+                    data: JSON.stringify({'grade': grade, 'class_type': class_type, 'class_number': class_number}),
+                    success: function (data) {
+                        if(data.status == 200)
+                        {
+                            let trs = '';
+                            for(let i=1;i<=Number(class_number);i++)
+                            {
+                                trs += "<tr name='one_class_info'>\n" +
+                                        "                        <td>"+grade+class_type+(i+data.has_class_number)+"班</td>\n" +
+                                        "                        <td>"+class_type+"</td>\n" +
+                                        "                        <td>"+grade+"</td>\n" +
+                                        "                        <td><button name=\"delete\" class=\"btn btn-danger\">删除</button></td>\n" +
+                                        "                    </tr>"
+                            }
+                            $('tbody').append(trs);
+                            $("#class_number").val("");
+                        }
+                    }
+                }
+            )
         }else
         {
-            $("#class_error_txt").append("请检查是否有信息未选择或未输入")
+            $("#class_error_txt").append("请检查信息是否完整")
         }
     })
     $("#class_save_end").click(function () {
@@ -357,7 +300,24 @@
         $("#add_class_box").modal("hide");
     })
     $(document).on('click','[name="delete"]',function () {
-        $(this).parent().parent().remove();
+        let class_name = $(this).parent().parent().children().eq(0).text();
+        let current = $(this).parent().parent();
+        $.ajax(
+            {
+                url: /delete_class_normal/,
+                type: 'POST',
+                data: {'class_name': class_name},
+                success: function (data) {
+                    if(data.status == 200)
+                    {
+                        current.remove();
+                    }
+                }
+            }
+        )
+    })
+    $("#save_class").click(function () {
+        $("#turn").click()
     })
 </script>
 </body>

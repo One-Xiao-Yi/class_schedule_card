@@ -63,11 +63,24 @@
                         <th>教师名称</th>
                         <th>所教授课程</th>
                         <th>所属教师组</th>
+                        <th>所属年级</th>
                         <th>修改</th>
                         <th>删除</th>
                     </tr>
                 </thead>
                 <tbody>
+                {% if has_teacher %}
+                    {% for item in items %}
+                    <tr>
+                        <td>{{ item.teacher_name }}</td>
+                        <td>{{ item.subject }}</td>
+                        <td>{{ item.group }}</td>
+                        <td>{{ item.grade }}</td>
+                        <td><button name='edit' class='btn btn-info'>修改</button></td>
+                        <td><button name='delete' class='btn btn-danger'>删除</button></td>
+                    </tr>
+                    {% endfor %}
+                {% endif %}
                 </tbody>
             </table>
         </div>
@@ -97,46 +110,35 @@
                     <div class="row">
                         <div class="col-md-2"></div>
                         <div class="col-md-8">
+                            {% for subject in subjects %}
                             <div class="col-md-3">
-                                <input type="checkbox" id="chinese" name="subject_ck" value="语文">
-                                <label for="chinese">语文</label>
+                                <input type="checkbox" id="{{ subject.subject_name }}" name="subject_ck" value="{{ subject.subject_name }}">
+                                <label for="{{ subject.subject_name }}">{{ subject.subject_name }}</label>
                             </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2"></div>
+                        <div class="col-md-8">
+                            <h5>所属年级：</h5>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2"></div>
+                        <div id="grade_box" class="col-md-8">
+                            {% for grade in grades %}
                             <div class="col-md-3">
-                                <input type="checkbox" id="math" name="subject_ck" value="数学">
-                                <label for="math">数学</label>
+                                <input type="radio" id="{{ grade.grade_name }}" name="grade" value="{{ grade.grade_name }}">
+                                <label for="{{ grade.grade_name }}">{{ grade.grade_name }}</label>
                             </div>
-                            <div class="col-md-3">
-                                <input type="checkbox" id="english" name="subject_ck" value="英语">
-                                <label for="chinese">英语</label>
-                            </div>
-                            <div class="col-md-3">
-                                <input type="checkbox" id="history" name="subject_ck" value="历史">
-                                <label for="history">历史</label>
-                            </div>
-                            <div class="col-md-3">
-                                <input type="checkbox" id="geography" name="subject_ck" value="地理">
-                                <label for="geography">地理</label>
-                            </div>
-                            <div class="col-md-3">
-                                <input type="checkbox" id="politics" name="subject_ck" value="政治">
-                                <label for="politics">政治</label>
-                            </div>
-                            <div class="col-md-3">
-                                <input type="checkbox" id="sports" name="subject_ck" value="体育">
-                                <label for="sports">体育</label>
-                            </div>
-                            <div class="col-md-3">
-                                <input type="checkbox" id="major" name="subject_ck" value="专业">
-                                <label for="major">专业</label>
-                            </div>
-                            <div class="col-md-3">
-                                <input type="checkbox" id="cleaning" name="subject_ck" value="扫除">
-                                <label for="cleaning">扫除</label>
-                            </div>
-                            <div class="col-md-3">
-                                <input type="checkbox" id="self_study" name="subject_ck" value="自习">
-                                <label for="self_study">自习</label>
-                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4"></div>
+                        <div class="col-md-4">
+                                <button id="add_grade" class="form-control">+</button>
                         </div>
                     </div>
                     <div class="row">
@@ -148,14 +150,12 @@
                     <div class="row">
                         <div class="col-md-2"></div>
                         <div class="col-md-8" id="teacher_group_box">
+                            {% for group in groups %}
                             <div class="col-md-4">
-                                <input type="radio" id="header" name="teacher_group" value="领导">
-                                <label for="header">领导</label>
+                                <input type="radio" id="{{ group.group_name }}" name="teacher_group" value="{{ group.group_name }}">
+                                <label for="{{ group.group_name }}">{{ group.group_name }}</label>
                             </div>
-                            <div class="col-md-4">
-                                <input type="radio" id="normal_teacher" name="teacher_group" value="普通教师">
-                                <label for="normal_teacher">普通教师</label>
-                            </div>
+                            {% endfor %}
                         </div>
                     </div>
                     <div class="row">
@@ -178,8 +178,48 @@
                             <button id="teacher_go_on" class="form-control">保存并继续</button>
                         </div>
                         <div class="col-md-4">
-                            <button id="teacher_save_end" class="form-control">保存</button>
+                            <button id="teacher_save_end" class="form-control">取消</button>
                         </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2"></div>
+                        <div class="col-md-8">
+                            <h5 id="error_txt" class="text-center"></h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="add_grade_box" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title text-center">添加年级</h5>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-2"></div>
+                        <div class="col-md-8">
+                            <div class="input-group">
+                                <span class="input-group-addon">年级名称：</span>
+                                <input id="grade_name" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="row">
+                        <div class="col-md-2"></div>
+                        <div class="col-md-4">
+                            <button id="grade_go_on" class="form-control">保存并继续</button>
+                        </div>
+                        <div class="col-md-4">
+                            <button id="grade_save_end" class="form-control">取消</button>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <h5 id="grade_error_txt" class="text-center"></h5>
                     </div>
                 </div>
             </div>
@@ -209,14 +249,129 @@
                             <button id="teacher_group_go_on" class="form-control">保存并继续</button>
                         </div>
                         <div class="col-md-4">
-                            <button id="teacher_group_save_end" class="form-control">保存</button>
+                            <button id="teacher_group_save_end" class="form-control">取消</button>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2"></div>
+                        <div class="col-md-8">
+                            <h5 id="group_error_txt" class="text-center"></h5>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    <div class="modal fade" id="update_teacher_box" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title text-center">信息修改</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-2"></div>
+                        <div class="col-md-8">
+                            <div class="input-group">
+                                <span class="input-group-addon">教师名称：</span>
+                                <input id="update_teacher_name" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2"></div>
+                        <div class="col-md-8">
+                            <h5>所教授课程：</h5>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2"></div>
+                        <div class="col-md-8">
+                            {% for subject in subjects %}
+                            <div class="col-md-3">
+                                <input type="checkbox" id="{{ subject.subject_name }}" name="update_subject_ck" value="{{ subject.subject_name }}">
+                                <label for="{{ subject.subject_name }}">{{ subject.subject_name }}</label>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2"></div>
+                        <div class="col-md-8">
+                            <h5>所属年级：</h5>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2"></div>
+                        <div id="grade_box" class="col-md-8">
+                            <div id="grade_box" class="col-md-8">
+                            {% for grade in grades %}
+                            <div class="col-md-3">
+                                <input type="radio" id="{{ grade.grade_name }}" name="update_grade" value="{{ grade.grade_name }}">
+                                <label for="{{ grade.grade_name }}">{{ grade.grade_name }}</label>
+                            </div>
+                            {% endfor %}
+                        </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2"></div>
+                        <div class="col-md-8">
+                            <h5>所属教师组：</h5>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2"></div>
+                        <div class="col-md-8" id="teacher_group_box">
+                            <div class="col-md-8" id="teacher_group_box">
+                            {% for group in groups %}
+                            <div class="col-md-4">
+                                <input type="radio" id="{{ group.group_name }}" name="update_teacher_group" value="{{ group.group_name }}">
+                                <label for="{{ group.group_name }}">{{ group.group_name }}</label>
+                            </div>
+                            {% endfor %}
+                        </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2"></div>
+                        <div class="col-md-8">
+                            <h5>教师组用于对将有特殊排课需求的教师与普通教师区分，为特殊教师分配不同的教师组，以便于满足特殊教师的排课安排。点击带+号的按钮，可添加更多教师组。</h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="row">
+                        <div class="col-md-2"></div>
+                        <div class="col-md-4">
+                            <button id="update_teacher_go_on" class="form-control">保存</button>
+                        </div>
+                        <div class="col-md-4">
+                            <button id="update_teacher_save_end" class="form-control">取消</button>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2"></div>
+                        <div class="col-md-8">
+                            <h5 id="update_error_txt" class="text-center"></h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+            <div class="col-md-4"></div>
+            <div class="col-md-4">
+                <button id="save_teacher" class="form-control btn btn-info">下一步</button>
+            </div>
+        </div>
+    </div>
+    <a href="/turn_class"><span id="turn"></span></a>
 <script>
+    let current_element;
     $("#add_teacher").click(function () {
         $("#add_teacher_box").modal({
             show:true,
@@ -231,43 +386,84 @@
             keyboard:false
         });
     })
+    $("#add_grade").click(function () {
+        $("#add_grade_box").modal("show");
+    })
+    $("#grade_go_on").click(function () {
+        let grade_name = $("#grade_name").val();
+        if(grade_name != "" && grade_name != null)
+        {
+            $.ajax(
+                {
+                    url: /save_grade_info/,
+                    type: 'POST',
+                    data: {'grade_name': grade_name},
+                    success: function (data) {
+                        if(data.status == 200)
+                        {
+                            $("#grade_box").append("<div class=\"col-md-3\">\n" +
+                                "                                <input type=\"radio\" id='"+grade_name+"' name=\"grade\" value='" + grade_name + "'>\n" +
+                                "                                <label for='"+grade_name+"'>" + grade_name + "</label>\n" +
+                                "                            </div>")
+                            $("#grade_name").val("");
+                        }else
+                        {
+                            $("#grade_error_txt").empty().append('已存在相同年级。')
+                        }
+                    }
+                }
+            )
+        }else
+        {
+            $("#grade_error_txt").empty().append("请输入年级名称");
+        }
+    })
+    $("#grade_save_end").click(function () {
+        $("#add_grade_box").modal("hide");
+    })
     $("#teacher_group_go_on").click(function () {
         let teacher_group_name = $("#teacher_group_name").val();
         if(teacher_group_name != '' && teacher_group_name != null)
         {
-           $("#teacher_group_box").append("<div class='col-md-4'>" +
-               "<input type='radio' id='" + teacher_group_name + "' name='teacher_group' value='" + teacher_group_name + "'>" +
-               "<label for='normal_teacher'>" + teacher_group_name + "</label>" +
-               "</div>")
-           $("#teacher_group_name").val("");
+           $.ajax(
+               {
+                   url: /save_teacher_group_info/,
+                   type: 'POST',
+                   data: {'teacher_group_name': teacher_group_name},
+                   success: function (data) {
+                       if(data.status == 200)
+                       {
+                           $("#teacher_group_box").append("<div class='col-md-4'>" +
+                                "<input type='radio' id='" + teacher_group_name + "' name='teacher_group' value='" + teacher_group_name + "'>" +
+                                "<label for='normal_teacher'>" + teacher_group_name + "</label>" +
+                                "</div>")
+                            $("#teacher_group_name").val("");
+                       }else
+                       {
+                           $("#group_error_txt").empty().append("已存在相同教师组");
+                       }
+                   }
+               }
+           )
         }else
         {
-            $("#add_teacher_group_box").modal("hide");
+            $("#group_error_txt").empty().append("请填写组名称");
         }
     })
     $("#teacher_group_save_end").click(function () {
-        let teacher_group_name = $("#teacher_group_name").val();
-        if(teacher_group_name != '' && teacher_group_name != null)
-        {
-           $("#teacher_group_box").append("<div class='col-md-4'>" +
-               "<input type='radio' id='" + teacher_group_name + "' name='teacher_group' value='" + teacher_group_name + "'>" +
-               "<label for='normal_teacher'>" + teacher_group_name + "</label>" +
-               "</div>")
-           $("#teacher_group_name").val("");
-           $("#add_teacher_group_box").modal("hide");
-        }else
-        {
-           $("#add_teacher_group_box").modal("hide");
-        }
+        $("#add_teacher_group_box").modal("hide");
     })
     $("#teacher_go_on").click(function () {
         let teacher_name = $("#teacher_name").val();
         let subject_lenght = $("[name='subject_ck']:checked").length;
         let subjects = '';
+        let subject_items = [];
         let teacher_group = $("[name='teacher_group']:checked").val();
+        let teacher_grade = $("[name='grade']:checked").val();
         if(teacher_name != "" && teacher_name != null && subject_lenght > 0 && teacher_group != '' && teacher_group != null)
         {
             $("[name='subject_ck']:checked").each(function (index) {
+                subject_items.push($(this).val());
                 if(subject_lenght - 1 == index)
                 {
                     subjects += $(this).val();
@@ -275,68 +471,114 @@
                 {
                     subjects += $(this).val() + '、';
                 }
-            })
-            let tr = "<tr>" +
-                "<td>" + teacher_name + "</td>" +
-                "<td>" + subjects + "</td>" +
-                "<td>" + teacher_group + "</td>" +
-                "<td><button name='edit' class='btn btn-info'>修改</button></td>" +
-                "<td><button name='delete' class='btn btn-danger'>删除</button></td>" +
-                "</tr>";
-            $("tbody").append(tr);
-            $("#teacher_name").val("");
-            //$("[name='subject_ck']:checked").each(function () {
-            //    $(this).attr('checked',false);
-            //})
-            //$("[name='teacher_group']").removeAttr('checked');
+            });
+            $.ajax(
+                {
+                    url: /save_teacher_info/,
+                    type: 'POST',
+                    data: JSON.stringify({'teacher_name': teacher_name, 'teacher_grade': teacher_grade,
+                    'teacher_group': teacher_group, 'subject_items': subject_items}),
+                    success: function (data) {
+                        if(data.status == 300)
+                        {
+                            $("#error_txt").empty().append("该教师已存在。");
+                        }else
+                        {
+                          let tr = "<tr name='one_teacher_info'>>" +
+                            "<td>" + teacher_name + "</td>" +
+                            "<td>" + subjects + "</td>" +
+                            "<td>" + teacher_group + "</td>" +
+                            "<td>" + teacher_grade + "</td>" +
+                            "<td><button name='edit' class='btn btn-info'>修改</button></td>" +
+                            "<td><button name='delete' class='btn btn-danger'>删除</button></td>" +
+                            "</tr>";
+                          $("tbody").append(tr);
+                          $("#teacher_name").val("");
+                        }
+                    }
+                }
+            )
         }else
         {
-            $("#add_teacher_box").modal("hide");
+            $("#error_txt").empty().append("请检查信息是否完整。");
         }
     })
     $("#teacher_save_end").click(function () {
-        let teacher_name = $("#teacher_name").val();
-        let subject_lenght = $("[name='subject_ck']:checked").length;
-        let subjects = '';
-        let teacher_group = $("[name='teacher_group']:checked").val();
-        if(teacher_name != "" && teacher_name != null && subject_lenght > 0 && teacher_group != '' && teacher_group != null)
-        {
-            $("[name='subject_ck']:checked").each(function (index) {
-                if(subject_lenght - 1 == index)
-                {
-                    subjects += $(this).val();
-                }else
-                {
-                    subjects += $(this).val() + '、';
-                }
-            })
-            let tr = "<tr>" +
-                "<td>" + teacher_name + "</td>" +
-                "<td>" + subjects + "</td>" +
-                "<td>" + teacher_group + "</td>" +
-                "<td><button name='edit' class='btn btn-info'>修改</button></td>" +
-                "<td><button name='delete' class='btn btn-danger'>删除</button></td>" +
-                "</tr>";
-            $("tbody").append(tr);
-            $("#teacher_name").val("");
-            $("#add_teacher_box").modal("hide");
-            //$("[name='subject_ck']:checked").each(function () {
-            //    $(this).attr('checked',false);
-            //})
-            //$("[name='teacher_group']").removeAttr('checked');
-        }else
-        {
-            $("#add_teacher_box").modal("hide");
-        }
+        $("#add_teacher_box").modal("hide");
     })
     $(document).on('click','[name="delete"]',function () {
-        $(this).parent().parent().remove();
+        let teacher_name = $(this).parent().parent().children().eq(0).text();
+        let grade = $(this).parent().parent().children().eq(3).text();
+        let del_item = $(this);
+        $.ajax(
+            {
+                url: /delete_teacher/,
+                type: 'POST',
+                data: JSON.stringify({'teacher_name': teacher_name, 'grade': grade}),
+                success: function (data) {
+                    if(data.status == 200)
+                    {
+                       del_item.parent().parent().remove();
+                    }
+                }
+            }
+        )
     })
     $(document).on('click','[name="edit"]',function () {
-        let teacher_name = $(this).parent().parent().children()[0].innerHTML;
-        $("#add_teacher_box").modal("show");
-        $("#teacher_name").val(teacher_name);
-        $(this).parent().parent().remove();
+        let teacher_name = $(this).parent().parent().children().eq(0).text();
+        $("#update_teacher_box").modal("show");
+        $("#update_teacher_name").val(teacher_name);
+        current_element = $(this).parent().parent();
+    })
+    $("#update_teacher_go_on").click(function () {
+        let teacher_name = $("#update_teacher_name").val()
+        let teacher_group = $("[name='update_teacher_group']:checked").val();
+        let teacher_grade = $("[name='update_grade']:checked").val();
+        let subject_lenght = $("[name='update_subject_ck']:checked").length;
+        let old_grade = current_element.children().eq(3).text();
+        let subjects = [];
+        let subject_str = '';
+        if(teacher_name != "" && teacher_name != null && subject_lenght > 0 && teacher_group != '' && teacher_group != null)
+        {
+            $("[name='update_subject_ck']:checked").each(function (index) {
+                if(subject_lenght - 1 == index)
+                {
+                    subject_str += $(this).val();
+                }else
+                {
+                    subject_str += $(this).val() + '、';
+                }
+                subjects.push($(this).val())
+            })
+            $.ajax(
+                {
+                    url: /update_teacher/,
+                    type: 'POST',
+                    data: JSON.stringify({'teacher_name': teacher_name, 'grade': teacher_grade, 'teacher_group': teacher_group, 'subjects': subjects, 'old_grade': old_grade}),
+                    success: function (data) {
+                        if(data.status == 200)
+                        {
+                            current_element.children().eq(0).text(teacher_name);
+                            current_element.children().eq(1).text(subject_str);
+                            current_element.children().eq(2).text(teacher_group);
+                            current_element.children().eq(3).text(teacher_grade);
+                            $("#update_teacher_box").modal("hide");
+                            $("#update_teacher_name").val('');
+                        }
+                    }
+                }
+            )
+        }else
+        {
+            $("#update_error_txt").empty().append('请检查信息是否完整。');
+        }
+    })
+    $("#update_teacher_save_end").click(function () {
+        $("#update_teacher_box").modal("hide");
+        $("#update_teacher_name").val('');
+    })
+    $("#save_teacher").click(function () {
+        $("#turn").click();
     })
 </script>
 </body>

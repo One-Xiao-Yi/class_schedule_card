@@ -67,57 +67,32 @@
     </div>
     <div class="row li_top_lg">
         <div class="col-md-2"></div>
+        <div class="col-md-8">
+            <h4 class="text-center">在为年级添加课程后，该年级下所有班级都会分配同样的课程，无需在下属分类中，重复添加课程。具体操作如下例所示：</h4>
+            <h4 class="text-center">例：所有高一班级都需上语文5节，其中体育班地理需上4节，
+                音乐班地理需上3节。则，先点击高一，在右方出现的部分内，为高一整个年级分配语文课5节。
+                之后点击高一体育班，只需在地理课程中输入4节，即可完成对体育班的课程分配。</h4>
+        </div>
+    </div>
+    <div class="row li_top_lg">
+        <div class="col-md-2"></div>
         <div class="col-md-3 path_btn">
             <div class="col-md-10 path_btn">
 			<div class="panel-group" id="class_box">
+                {% for one_grade in grade %}
 				<div class="panel panel-default">
 					<div class="panel-heading">
-						 <p name="class_name_div" class="panel-title" data-toggle="collapse" data-parent="#class_box" href="#grade_1_class_type_box">高一</p>
+						 <p name="class_name_div" class="panel-title" data-toggle="collapse" data-parent="#class_box" href="#grade_1_class_type_box">{{ one_grade.grade_name }}</p>
 					</div>
 					<div id="grade_1_class_type_box" class="panel-collapse collapse">
+                        {% for one_class_type in class_type %}
 						<div name="class_name_div" class="panel-body">
-							高一音乐班
+							{{ one_grade.grade_name }}|{{ one_class_type.type_name }}
 						</div>
-                        <div name="class_name_div" class="panel-body">
-							高一体育班
-						</div>
-                        <div name="class_name_div" class="panel-body">
-							高一混合班
-						</div>
+                        {% endfor %}
 					</div>
 				</div>
-				<div class="panel panel-default">
-					<div class="panel-heading">
-						 <p name="class_name_div" class="panel-title" data-toggle="collapse" data-parent="#class_box" href="#grade_2_class_type_box">高二</p>
-					</div>
-					<div id="grade_2_class_type_box" class="panel-collapse collapse">
-						<div name="class_name_div" class="panel-body">
-							高二音乐班
-						</div>
-                        <div name="class_name_div" class="panel-body">
-							高二体育班
-						</div>
-                        <div name="class_name_div" class="panel-body">
-							高二混合班
-						</div>
-					</div>
-				</div>
-                <div class="panel panel-default">
-					<div class="panel-heading">
-						 <p name="class_name_div" class="panel-title" data-toggle="collapse" data-parent="#class_box" href="#grade_3_class_type_box">高三</p>
-					</div>
-					<div id="grade_3_class_type_box" class="panel-collapse collapse">
-						<div name="class_name_div" class="panel-body">
-							高三音乐班
-						</div>
-                        <div name="class_name_div" class="panel-body">
-							高三体育班
-						</div>
-                        <div name="class_name_div" class="panel-body">
-							高三混合班
-						</div>
-					</div>
-				</div>
+                {% endfor %}
 			</div>
         </div>
         </div>
@@ -129,34 +104,15 @@
                 <h5 class="text-center">空格内不填写，则表示不分配该课程。</h5>
             </div>
             <div class="row path_btn">
+                {% for subject in subjects %}
                 <div class="col-md-6 li_top_min">
                     <div class="input-group">
-                        <span class="input-group-addon">语文</span>
+                        <span class="input-group-addon">{{ subject.subject_name }}</span>
                         <input id="chinese_hour" name="hour_number" type="number" class="form-control" aria-label="Amount (to the nearest dollar)">
                         <span class="input-group-addon">节</span>
                     </div>
                 </div>
-                <div class="col-md-6 li_top_min">
-                    <div class="input-group">
-                        <span class="input-group-addon">数学</span>
-                        <input id="math_hour" name="hour_number" type="number" class="form-control" aria-label="Amount (to the nearest dollar)">
-                        <span class="input-group-addon">节</span>
-                    </div>
-                </div>
-                <div class="col-md-6 li_top_min">
-                    <div class="input-group">
-                        <span class="input-group-addon">英语</span>
-                        <input id="english_hour" name="hour_number" type="number" class="form-control" aria-label="Amount (to the nearest dollar)">
-                        <span class="input-group-addon">节</span>
-                    </div>
-                </div>
-                <div class="col-md-6 li_top_min">
-                    <div class="input-group">
-                        <span class="input-group-addon">历史</span>
-                        <input id="history_hour" name="hour_number" type="number" class="form-control" aria-label="Amount (to the nearest dollar)">
-                        <span class="input-group-addon">节</span>
-                    </div>
-                </div>
+                {% endfor %}
             </div>
             <div class="row path_btn">
                 <div class="col-md-5"></div>
@@ -166,15 +122,60 @@
             </div>
         </div>
     </div>
+    <div class="row li_top_lg">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+            <div class="col-md-4"></div>
+            <div class="col-md-4">
+                <button id="btn_turn" class="form-control btn btn-info">下一步</button>
+            </div>
+        </div>
+    </div>
+    <a href="/turn_class_edit"><span id="turn"></span></a>
 <script>
     $("[name='class_name_div']").click(function () {
         let class_type_name = $(this).text();
-        $("#class_hour_box").css('display','block');
-        $("#class_type_name").empty().append(class_type_name);
+        if($("#class_type_name").text() != class_type_name)
+        {
+           if($("#class_hour_box").css('display') == 'block')
+            {
+                alert("请先保存上一次课程添加结果。")
+            }else
+            {
+                $("#class_hour_box").css('display','block');
+                $("#class_type_name").empty().append(class_type_name);
+            }
+        }
     })
     $("#save").click(function () {
-        $("[name='hour_number']").val("");
-        $("#class_hour_box").css('display','none');
+        let class_name = $("#class_type_name").text();
+        let subject_hours = []
+        $("[name='hour_number']").each(function () {
+            let subject = {};
+            subject.subject_name = $(this).prev().text();
+            subject.number = $(this).val();
+            subject_hours.push(subject);
+        })
+        $.ajax(
+            {
+                url: /save_subject_hour_info/,
+                type: 'POST',
+                data: JSON.stringify({'class_name': class_name, 'subject_hours': subject_hours}),
+                success: function (data) {
+                    $("[name='hour_number']").val("");
+                    $("#class_hour_box").css('display','none');
+                }
+            }
+        )
+    })
+    $("#btn_turn").click(function () {
+        if($("#class_hour_box").css('display') == 'block')
+        {
+            alert("请先保存上一次课程添加结果。")
+        }else
+        {
+            $("#turn").click();
+        }
     })
 </script>
 </body>
