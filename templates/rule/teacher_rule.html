@@ -14,34 +14,34 @@
         <div class="col-md-3"></div>
         <div class="col-md-6">
             <div class="col-md-2">
-                <button class="btn btn-default" aria-label="Right Align">输入课表信息
+                <a href="#/start_input" name="top_turn" class="btn btn-default" aria-label="Right Align">输入课表信息
+                    <span class="glyphicon glyphicon-arrow-right" aria-hidden="false"></span>
+                </a>
+            </div>
+            <div class="col-md-2">
+                <a href="#/turn_subject" name="top_turn" class="btn btn-default" aria-label="Right Align">输入课程信息
+                    <span class="glyphicon glyphicon-arrow-right" aria-hidden="false"></span>
+                </a>
+            </div>
+            <div class="col-md-2">
+                <a name="top_turn" href="#/turn_teacher" class="btn btn-default" aria-label="Right Align">输入教师信息
+                    <span class="glyphicon glyphicon-arrow-right" aria-hidden="false"></span>
+                </a>
+            </div>
+            <div class="col-md-2">
+                <a href="#/turn_class" name="top_turn" class="btn btn-default" aria-label="Right Align">输入班级信息
+                    <span class="glyphicon glyphicon-arrow-right" aria-hidden="false"></span>
+                </a>
+            </div>
+            <div class="col-md-2">
+                <button name="top_turn" class="btn btn-info" aria-label="Right Align">输入排课规则
                     <span class="glyphicon glyphicon-arrow-right" aria-hidden="false"></span>
                 </button>
             </div>
             <div class="col-md-2">
-                <button class="btn btn-default" aria-label="Right Align">输入课程信息
+                <a href="#/turn_make_card" name="top_turn" class="btn btn-default" aria-label="Right Align">开始排课
                     <span class="glyphicon glyphicon-arrow-right" aria-hidden="false"></span>
-                </button>
-            </div>
-            <div class="col-md-2">
-                <button class="btn btn-default" aria-label="Right Align">输入教师信息
-                    <span class="glyphicon glyphicon-arrow-right" aria-hidden="false"></span>
-                </button>
-            </div>
-            <div class="col-md-2">
-                <button class="btn btn-default" aria-label="Right Align">输入班级信息
-                    <span class="glyphicon glyphicon-arrow-right" aria-hidden="false"></span>
-                </button>
-            </div>
-            <div class="col-md-2">
-                <button class="btn btn-info" aria-label="Right Align">输入排课规则
-                    <span class="glyphicon glyphicon-arrow-right" aria-hidden="false"></span>
-                </button>
-            </div>
-            <div class="col-md-2">
-                <button class="btn btn-default" aria-label="Right Align">开始排课
-                    <span class="glyphicon glyphicon-arrow-right" aria-hidden="false"></span>
-                </button>
+                </a>
             </div>
         </div>
     </div>
@@ -54,75 +54,25 @@
                 </button>
             </div>
             <div class="col-md-6">
-                <button class="btn btn-default" aria-label="Right Align">针对班级指定排课规则
+                <a href="#/turn_class_rule" name="top_turn" class="btn btn-default" aria-label="Right Align">针对班级指定排课规则
                     <span class="glyphicon glyphicon-arrow-right" aria-hidden="false"></span>
-                </button>
+                </a>
             </div>
         </div>
     </div>
-    <div class="row path_btn">
+    <div class="row li_top_lg">
         <div class="col-md-2"></div>
         <div class="col-md-2 path_btn">
-            <div class="col-md-10">
-			<div class="panel-group" id="class_box">
-				<div class="panel panel-default">
-					<div class="panel-heading">
-						 <p name="teacher_name_div" class="panel-title" data-toggle="collapse" data-parent="#class_box" href="#grade_1_class_type_box">领导</p>
-					</div>
-					<div id="grade_1_class_type_box" class="panel-collapse collapse">
-						<div name="teacher_name_div" class="panel-body">
-							领导1
-						</div>
-                        <div name="teacher_name_div" class="panel-body">
-							领导2
-						</div>
-                        <div name="teacher_name_div" class="panel-body">
-							领导3
-						</div>
-					</div>
-				</div>
-				<div class="panel panel-default">
-					<div class="panel-heading">
-						 <p name="teacher_name_div" class="panel-title" data-toggle="collapse" data-parent="#class_box" href="#grade_2_class_type_box">普通教师</p>
-					</div>
-					<div id="grade_2_class_type_box" class="panel-collapse collapse">
-						<div name="teacher_name_div" class="panel-body">
-							普通教师1
-						</div>
-                        <div name="teacher_name_div" class="panel-body">
-							普通教师2
-						</div>
-                        <div name="teacher_name_div" class="panel-body">
-							普通教师3
-						</div>
-                        <div name="teacher_name_div" class="panel-body">
-							普通教师4
-						</div>
-                        <div name="teacher_name_div" class="panel-body">
-							普通教师5
-						</div>
-                        <div name="teacher_name_div" class="panel-body">
-							普通教师6
-						</div>
-                        <div name="teacher_name_div" class="panel-body">
-							普通教师7
-						</div>
-                        <div name="teacher_name_div" class="panel-body">
-							普通教师8
-						</div>
-                        <div name="teacher_name_div" class="panel-body">
-							普通教师9
-						</div>
-					</div>
-				</div>
-			</div>
-            </div>
+            {% for group in groups %}
+            <button name="teacher_name_div" class="form-control btn btn-info li_top_min">{{ group.group_name }}</button>
+            {% endfor %}
+            <a name="top_turn" class="form-control btn btn-info path_btn" href="#/turn_class_rule">下一步</a>
         </div>
         <div class="col-md-5" id="add_rule_box" style="display: none;">
             <div class="row">
                 <h4 class="text-center" id="teacher_name"></h4>
             </div>
-            <div class="row li_top_min">
+            <div class="row">
                 <h5 class="text-center">选择固定上或固定不上某节课按钮，在空课程表上点击相应课时，则在排课时，将固定为该教师排或不排该课时。</h5>
             </div>
             <div class="row li_top_min">
@@ -144,98 +94,28 @@
                     <thead>
                         <tr>
                             <th></th>
-                            <th>星期一</th>
-                            <th>星期二</th>
-                            <th>星期三</th>
-                            <th>星期四</th>
-                            <th>星期五</th>
-                            <th>星期六</th>
-                            <th>星期日</th>
+                            {% for column_card in column_cards %}
+                            <th>{{ column_card.column_name }}</th>
+                            {% endfor %}
                         </tr>
                     </thead>
                     <tbody>
+                    {% for row in row_cards %}
                         <tr>
-                            <td name="head_cell">1</td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
+                            <td name="head_cell">{{ row.row_name }}</td>
+                            {% for column in column_cards %}
+                            <td name="0"></td>
+                            {% endfor %}
                         </tr>
-                        <tr>
-                            <td name="head_cell">2</td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td name="head_cell">3</td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td name="head_cell">4</td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td name="head_cell">5</td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td name="head_cell">6</td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td name="head_cell">7</td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td name="head_cell">8</td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
+                    {% endfor %}
                     </tbody>
                 </table>
+            </div>
+            <div class="row">
+                <div class="col-md-4"></div>
+                <div class="col-md-4">
+                    <button id="save_rule" class="form-control btn btn-info">保存</button>
+                </div>
             </div>
         </div>
     </div>
@@ -243,21 +123,26 @@
     let green_color = '#5cb85c';
     let red_color = '#d9534f';
     let cell_color = '';
+    let type = 0;
     $("[name='class_tf']").click(function () {
         let color_number = $("[name='class_tf']:checked").val();
         if(Number(color_number) == 0)
         {
             cell_color = green_color;
+            type = 1;
         }else if (Number(color_number) == 1)
         {
             cell_color = red_color;
+            type = -1;
         }else
         {
             cell_color = '';
+            type = 0;
         }
     })
     $("td").click(function () {
         $(this).css('background-color',cell_color);
+        $(this).attr('name', type);
     })
     $("th").click(function () {
         let column_index = $(this).index();
@@ -270,9 +155,82 @@
         $(this).css('background-color','');
     })
     $("[name='teacher_name_div']").click(function () {
-        let teacher_name = $(this).text();
-        $("#add_rule_box").css('display','block');
-        $("#teacher_name").empty().append(teacher_name);
+        $("td").each(function () {
+            if($(this).attr('name').trim() != 'head_cell')
+            {
+                $(this).css('background-color', '');
+                $(this).attr('name', '');
+            }
+        })
+        let group = $(this).text();
+        $.ajax(
+            {
+                url: /get_teacher_rule/,
+                type: 'POST',
+                data: {'group': group},
+                success: function (data) {
+                    if(data.status == 200)
+                    {
+                        for(let i=0;i<data.color_cells.length;i++)
+                        {
+                            if(data.color_cells[i].type == '1')
+                            {
+                                $("tbody").children().eq(data.color_cells[i].y).children().eq(data.color_cells[i].x).css('background-color', green_color);
+                            }else
+                            {
+                                $("tbody").children().eq(data.color_cells[i].y).children().eq(data.color_cells[i].x).css('background-color', red_color);
+                            }
+                        }
+                    }
+                    $("#add_rule_box").css('display','block');
+                    $("#teacher_name").empty().append(group);
+                }
+            }
+        )
+    })
+    $("#save_rule").click(function () {
+        let group = $("#teacher_name").text();
+        let items = [];
+        $("td").each(function () {
+            if($(this).attr('name') != '0' && $(this).attr('name') != 'head_cell')
+            {
+                let one_tr = {};
+                one_tr.x = $(this).index();
+                one_tr.y = $(this).parent().children().eq(0).text().trim();
+                one_tr.type = 0;
+                if($(this).attr('name') == '1')
+                {
+                    one_tr.type = 1;
+                }else if($(this).attr('name') == '-1')
+                {
+                    one_tr.type = -1;
+                }
+                items.push(one_tr);
+            }
+        })
+        $.ajax(
+            {
+                url: /save_teacher_rule/,
+                type: 'POST',
+                data: JSON.stringify({'group': group.trim(), 'items': items}),
+                success: function (data) {
+                    if(data.status == 200)
+                    {
+                        $("#add_rule_box").css('display','none');
+                        $("#teacher_name").empty();
+                    }
+                }
+            }
+        )
+    })
+    $("[name='top_turn']").click(function () {
+        if($("#add_rule_box").css('display') == 'block')
+        {
+            alert("请先保存上一次添加结果。");
+        }else
+        {
+            $(this).attr('href', $(this).attr('href').replace('#', ''));
+        }
     })
 </script>
 </body>

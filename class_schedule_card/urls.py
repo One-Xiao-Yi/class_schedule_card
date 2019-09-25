@@ -19,6 +19,7 @@ from automatic_card.turn_views import *
 from automatic_card.class_normal_views import *
 from automatic_card.teacher_views import *
 from automatic_card.other_views import *
+from automatic_card.rule_views import *
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -42,4 +43,11 @@ urlpatterns = [
     path('turn_class_edit/', turn_class_edit),
     path('delete_class_normal/', delete_class_normal),
     path('update_class_normal/', update_class_normal),
+    path('turn_teacher_rule/', turn_teacher_rule),
+    path('get_teacher_rule/', get_teacher_rule),
+    path('save_teacher_rule/', receive_teacher_rule),
+    path('turn_class_rule/', turn_class_rule),
+    path('get_class_rule/', get_class_rule),
+    path('save_class_rule/', receive_class_rule),
+    path('turn_make_card/', turn_make_card),
 ]

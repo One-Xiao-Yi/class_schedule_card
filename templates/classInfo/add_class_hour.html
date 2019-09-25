@@ -14,34 +14,34 @@
         <div class="col-md-3"></div>
         <div class="col-md-6">
             <div class="col-md-2">
-                <button class="btn btn-default" aria-label="Right Align">输入课表信息
+                <a href="#/start_input" name="top_turn" class="btn btn-default" aria-label="Right Align">输入课表信息
                     <span class="glyphicon glyphicon-arrow-right" aria-hidden="false"></span>
-                </button>
+                </a>
             </div>
             <div class="col-md-2">
-                <button class="btn btn-default" aria-label="Right Align">输入课程信息
+                <a href="#/turn_subject" name="top_turn" class="btn btn-default" aria-label="Right Align">输入课程信息
                     <span class="glyphicon glyphicon-arrow-right" aria-hidden="false"></span>
-                </button>
+                </a>
             </div>
             <div class="col-md-2">
-                <button class="btn btn-default" aria-label="Right Align">输入教师信息
+                <a name="top_turn" href="#/turn_teacher" class="btn btn-default" aria-label="Right Align">输入教师信息
                     <span class="glyphicon glyphicon-arrow-right" aria-hidden="false"></span>
-                </button>
+                </a>
             </div>
             <div class="col-md-2">
-                <button class="btn btn-info" aria-label="Right Align">输入班级信息
+                <a name="top_turn" class="btn btn-info" aria-label="Right Align">输入班级信息
                     <span class="glyphicon glyphicon-arrow-right" aria-hidden="false"></span>
-                </button>
+                </a>
             </div>
             <div class="col-md-2">
-                <button class="btn btn-default" aria-label="Right Align">输入排课规则
+                <a href="#/turn_teacher_rule" name="top_turn" class="btn btn-default" aria-label="Right Align">输入排课规则
                     <span class="glyphicon glyphicon-arrow-right" aria-hidden="false"></span>
-                </button>
+                </a>
             </div>
             <div class="col-md-2">
-                <button class="btn btn-default" aria-label="Right Align">开始排课
+                <a name="top_turn" href="#/turn_make_card" class="btn btn-default" aria-label="Right Align">开始排课
                     <span class="glyphicon glyphicon-arrow-right" aria-hidden="false"></span>
-                </button>
+                </a>
             </div>
         </div>
     </div>
@@ -49,19 +49,19 @@
         <div class="col-md-4"></div>
         <div class="col-md-4">
             <div class="col-md-4">
-                <button class="btn btn-default" aria-label="Right Align">添加班级
+                <a name="top_turn" href="#/turn_class" class="btn btn-default" aria-label="Right Align">添加班级
                     <span class="glyphicon glyphicon-arrow-right" aria-hidden="false"></span>
-                </button>
+                </a>
             </div>
             <div class="col-md-4">
-                <button class="btn btn-info" aria-label="Right Align">分配课程及课时
+                <a class="btn btn-info" aria-label="Right Align">分配课程及课时
                     <span class="glyphicon glyphicon-arrow-right" aria-hidden="false"></span>
-                </button>
+                </a>
             </div>
             <div class="col-md-4">
-                <button class="btn btn-default" aria-label="Right Align">班级信息及调整
+                <a name="top_turn" href="#/turn_class_edit" class="btn btn-default" aria-label="Right Align">班级信息及调整
                     <span class="glyphicon glyphicon-arrow-right" aria-hidden="false"></span>
-                </button>
+                </a>
             </div>
         </div>
     </div>
@@ -82,9 +82,9 @@
                 {% for one_grade in grade %}
 				<div class="panel panel-default">
 					<div class="panel-heading">
-						 <p name="class_name_div" class="panel-title" data-toggle="collapse" data-parent="#class_box" href="#grade_1_class_type_box">{{ one_grade.grade_name }}</p>
+						 <p name="class_name_div" class="panel-title" data-toggle="collapse" data-parent="#class_box" href="#{{ one_grade.grade_name }}">{{ one_grade.grade_name }}</p>
 					</div>
-					<div id="grade_1_class_type_box" class="panel-collapse collapse">
+					<div id="{{ one_grade.grade_name }}" class="panel-collapse collapse">
                         {% for one_class_type in class_type %}
 						<div name="class_name_div" class="panel-body">
 							{{ one_grade.grade_name }}|{{ one_class_type.type_name }}
@@ -175,6 +175,15 @@
         }else
         {
             $("#turn").click();
+        }
+    })
+    $("[name='top_turn']").click(function () {
+        if($("#class_hour_box").css('display') == 'block')
+        {
+            alert("请先保存上一次课程添加结果。");
+        }else
+        {
+            $(this).attr('href', $(this).attr('href').replace('#', ''));
         }
     })
 </script>

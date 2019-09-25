@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>开始排课</title>
+    <script src="../static/js/jquery-3.3.1.min.js"></script>
+    <script src="../static/js/bootstrap.js"></script>
+    <link rel="stylesheet" href="../static/css/bootstrap.css">
+    <link rel="stylesheet" href="../static/css/diy.css">
+</head>
+<body class="body_class">
+    <a id="start_btn" href="" class="btn btn-info" style="position: absolute;">点击开始生成课表</a>
+    <script>
+        let height = $(window).height();
+        let width = $(window).width();
+        $("#start_btn").css("width",width / 5 + 'px').css("height",height / 20 + 'px');
+        let btn_top = (height - $("#start_btn").height()) / 2 + 'px';
+        let btn_left = (width - $("#start_btn").width()) / 2 + 'px';
+        $("#start_btn").css("top",btn_top).css("left",btn_left);
+    </script>
+</body>
+</html>

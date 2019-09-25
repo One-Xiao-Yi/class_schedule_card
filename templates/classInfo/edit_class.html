@@ -14,34 +14,34 @@
         <div class="col-md-3"></div>
         <div class="col-md-6">
             <div class="col-md-2">
-                <button class="btn btn-default" aria-label="Right Align">输入课表信息
+                <a href="/start_input" class="btn btn-default" aria-label="Right Align">输入课表信息
                     <span class="glyphicon glyphicon-arrow-right" aria-hidden="false"></span>
-                </button>
+                </a>
             </div>
             <div class="col-md-2">
-                <button class="btn btn-default" aria-label="Right Align">输入课程信息
+                <a href="/turn_subject"  class="btn btn-default" aria-label="Right Align">输入课程信息
                     <span class="glyphicon glyphicon-arrow-right" aria-hidden="false"></span>
-                </button>
+                </a>
             </div>
             <div class="col-md-2">
-                <button class="btn btn-default" aria-label="Right Align">输入教师信息
+                <a href="/turn_teacher" class="btn btn-default" aria-label="Right Align">输入教师信息
                     <span class="glyphicon glyphicon-arrow-right" aria-hidden="false"></span>
-                </button>
+                </a>
             </div>
             <div class="col-md-2">
-                <button class="btn btn-info" aria-label="Right Align">输入班级信息
+                <a class="btn btn-info" aria-label="Right Align">输入班级信息
                     <span class="glyphicon glyphicon-arrow-right" aria-hidden="false"></span>
-                </button>
+                </a>
             </div>
             <div class="col-md-2">
-                <button class="btn btn-default" aria-label="Right Align">输入排课规则
+                <a href="/turn_teacher_rule" class="btn btn-default" aria-label="Right Align">输入排课规则
                     <span class="glyphicon glyphicon-arrow-right" aria-hidden="false"></span>
-                </button>
+                </a>
             </div>
             <div class="col-md-2">
-                <button class="btn btn-default" aria-label="Right Align">开始排课
+                <a href="/turn_make_card" class="btn btn-default" aria-label="Right Align">开始排课
                     <span class="glyphicon glyphicon-arrow-right" aria-hidden="false"></span>
-                </button>
+                </a>
             </div>
         </div>
     </div>
@@ -49,19 +49,19 @@
         <div class="col-md-4"></div>
         <div class="col-md-4">
             <div class="col-md-4">
-                <button class="btn btn-default" aria-label="Right Align">添加班级
+                <a href="/turn_class" class="btn btn-default" aria-label="Right Align">添加班级
                     <span class="glyphicon glyphicon-arrow-right" aria-hidden="false"></span>
-                </button>
+                </a>
             </div>
             <div class="col-md-4">
-                <button class="btn btn-default" aria-label="Right Align">分配课程及课时
+                <a href="/turn_class_hour" class="btn btn-default" aria-label="Right Align">分配课程及课时
                     <span class="glyphicon glyphicon-arrow-right" aria-hidden="false"></span>
-                </button>
+                </a>
             </div>
             <div class="col-md-4">
-                <button class="btn btn-info" aria-label="Right Align">班级信息及调整
+                <a class="btn btn-info" aria-label="Right Align">班级信息及调整
                     <span class="glyphicon glyphicon-arrow-right" aria-hidden="false"></span>
-                </button>
+                </a>
             </div>
         </div>
     </div>
@@ -92,6 +92,15 @@
                 {% endfor %}
                 </tbody>
             </table>
+        </div>
+    </div>
+    <div class="row li_top_lg">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+            <div class="col-md-4"></div>
+            <div class="col-md-4">
+                <a href="/turn_teacher_rule" class="form-control btn btn-info">下一步</a>
+            </div>
         </div>
     </div>
     <div class="modal fade" id="edit_class_box" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">

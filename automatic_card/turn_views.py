@@ -1,6 +1,5 @@
 from django.shortcuts import render
 from automatic_card.models import *
-import uuid
 
 
 def home(request):
@@ -141,3 +140,28 @@ def turn_class_edit(request):
     return render(request, 'classInfo/edit_class.html',
                   {'items': items, 'grades': grades,
                    'class_types': class_types, 'subjects': subjects})
+
+
+def turn_teacher_rule(request):
+    groups = TeacherGroup.objects.all()
+    row_cards = RowCard.objects.all().order_by('row_index')
+    column_cards = ColumnCard.objects.all().order_by('column_index')
+    return render(request, 'rule/teacher_rule.html',
+                  {'groups': groups, 'row_cards': row_cards,
+                   'column_cards': column_cards})
+
+
+def turn_class_rule(request):
+    subjects = Subject.objects.all()
+    class_type = ClassType.objects.all()
+    grade = Grade.objects.all()
+    row_cards = RowCard.objects.all().order_by('row_index')
+    column_cards = ColumnCard.objects.all().order_by('column_index')
+    return render(request, 'rule/class_rule.html',
+                  {'subjects': subjects, 'class_type': class_type,
+                   'grade': grade, 'row_cards': row_cards,
+                   'column_cards': column_cards})
+
+
+def turn_make_card(request):
+    return render(request, 'make_card.html')
