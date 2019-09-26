@@ -10,6 +10,41 @@
     <link rel="stylesheet" href="../static/css/diy.css">
 </head>
 <body class="body_class">
+    <div class="row path_btn">
+        <div class="col-md-3"></div>
+        <div class="col-md-6">
+            <div class="col-md-2">
+                <a href="/start_input" name="top_turn" class="btn btn-default" aria-label="Right Align">输入课表信息
+                    <span class="glyphicon glyphicon-arrow-right" aria-hidden="false"></span>
+                </a>
+            </div>
+            <div class="col-md-2">
+                <a href="/turn_subject" name="top_turn" class="btn btn-default" aria-label="Right Align">输入课程信息
+                    <span class="glyphicon glyphicon-arrow-right" aria-hidden="false"></span>
+                </a>
+            </div>
+            <div class="col-md-2">
+                <a name="top_turn" href="/turn_teacher" class="btn btn-default" aria-label="Right Align">输入教师信息
+                    <span class="glyphicon glyphicon-arrow-right" aria-hidden="false"></span>
+                </a>
+            </div>
+            <div class="col-md-2">
+                <a name="top_turn" href="/turn_class" class="btn btn-default" aria-label="Right Align">输入班级信息
+                    <span class="glyphicon glyphicon-arrow-right" aria-hidden="false"></span>
+                </a>
+            </div>
+            <div class="col-md-2">
+                <a href="/turn_teacher_rule" name="top_turn" class="btn btn-default" aria-label="Right Align">输入排课规则
+                    <span class="glyphicon glyphicon-arrow-right" aria-hidden="false"></span>
+                </a>
+            </div>
+            <div class="col-md-2">
+                <a name="top_turn" class="btn btn-info" aria-label="Right Align">开始排课
+                    <span class="glyphicon glyphicon-arrow-right" aria-hidden="false"></span>
+                </a>
+            </div>
+        </div>
+    </div>
     <a id="start_btn" href="" class="btn btn-info" style="position: absolute;">点击开始生成课表</a>
     <script>
         let height = $(window).height();

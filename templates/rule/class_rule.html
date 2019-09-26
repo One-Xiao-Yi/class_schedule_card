@@ -65,15 +65,15 @@
         <div class="col-md-2 path_btn">
             <div class="col-md-10">
 				<div class="panel-group" id="class_box">
-                {% for one_grade in grade %}
+                {% for key, value in items.items %}
 				<div class="panel panel-default">
 					<div class="panel-heading">
-						 <p name="class_type_grade_name_div" class="panel-title" data-toggle="collapse" data-parent="#class_box" href="#{{ one_grade.grade_name }}">{{ one_grade.grade_name }}</p>
+						 <p name="class_type_grade_name_div" class="panel-title" data-toggle="collapse" data-parent="#class_box" href="#{{ key }}">{{ key }}</p>
 					</div>
-					<div id="{{ one_grade.grade_name }}" class="panel-collapse collapse">
-                        {% for one_class_type in class_type %}
+					<div id="{{ key }}" class="panel-collapse collapse">
+                        {% for one_class_type in value %}
 						<div name="class_type_grade_name_div" class="panel-body">
-							{{ one_grade.grade_name }}|{{ one_class_type.type_name }}
+							{{ key }}|{{ one_class_type }}
 						</div>
                         {% endfor %}
 					</div>
@@ -126,12 +126,22 @@
                     </tbody>
                 </table>
             </div>
+            <div class="row">
+                <div class="col-md-2"></div>
+                <div class="col-md-8">
+                    <h5 class="text-center" id="error_txt1"></h5>
+                    <h5 class="text-center" id="error_txt2"></h5>
+                </div>
+            </div>
             <div class="row li_top_lg">
                 <div class="col-md-2"></div>
                 <div class="col-md-8">
-                    <div class="col-md-4"></div>
-                    <div class="col-md-4">
+                    <div class="col-md-3"></div>
+                    <div class="col-md-3">
                         <button id="save_rule" class="form-control btn btn-info">保存</button>
+                    </div>
+                    <div class="col-md-3">
+                        <button id="close" class="form-control btn btn-info">取消</button>
                     </div>
                 </div>
             </div>
@@ -162,6 +172,8 @@
                     }
                     $("#add_rule_box").css('display','block');
                     $("#class_type_grade_name").empty().append(grade_type);
+                    $('#error_txt1').empty();
+                    $('#error_txt2').empty();
                 }
             }
         )
@@ -210,6 +222,46 @@
                     {
                         $("#add_rule_box").css('display','none');
                         $("#teacher_name").empty();
+                        $('#error_txt1').empty();
+                        $('#error_txt2').empty();
+                    }else
+                    {
+                        let high_txt = '';
+                        for(let i=0;i<data.high_hour.length;i++)
+                        {
+                            if(i == data.high_hour.length - 1)
+                            {
+                                high_txt += data.high_hour[i].subject_name
+                            }else
+                            {
+                                high_txt += data.high_hour[i].subject_name + '、'
+                            }
+                        }
+                        let no_subject = '';
+                        for(let i=0;i<data.no_subject.length;i++)
+                        {
+                            if(i == data.no_subject.length - 1)
+                            {
+                                no_subject += data.no_subject[i].subject_name
+                            }else
+                            {
+                                no_subject += data.no_subject[i].subject_name + '、'
+                            }
+                        }
+                        if(high_txt != '')
+                        {
+                            $('#error_txt1').empty().append('以下固定上课程课时超过事先安排课程课时：' + high_txt);
+                        }else
+                        {
+                            $('#error_txt1').empty();
+                        }
+                        if(no_subject != '')
+                        {
+                            $('#error_txt2').empty().append('以下固定上课程不在事先安排课程内：' + no_subject);
+                        }else
+                        {
+                            $('#error_txt2').empty();
+                        }
                     }
                 }
             }
@@ -223,6 +275,12 @@
         {
             $(this).attr('href', $(this).attr('href').replace('#', ''));
         }
+    })
+    $("#close").click(function () {
+        $("#add_rule_box").css('display','none');
+        $("#teacher_name").empty();
+        $('#error_txt1').empty();
+        $('#error_txt2').empty();
     })
 </script>
 </body>

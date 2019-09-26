@@ -196,6 +196,23 @@
                             </div>
                         </div>
                     </div>
+                    <div class="row">
+                        <div class="col-md-2"></div>
+                        <div class="col-md-8">
+                            <h5>所属年级：</h5>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2"></div>
+                        <div id="grade_box" class="col-md-8">
+                            {% for grade in grades %}
+                            <div class="col-md-3">
+                                <input type="radio" id="type_{{ grade.grade_name }}" name="type_grade" value="{{ grade.grade_name }}">
+                                <label for="type_{{ grade.grade_name }}">{{ grade.grade_name }}</label>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <div class="row">
@@ -233,13 +250,14 @@
     })
     $("#class_type_go_on").click(function () {
         let class_type_name = $("#class_type_name").val();
+        let grade = $("[name='type_grade']:checked").val();
         if(class_type_name != "" && class_type_name != null)
         {
             $.ajax(
                 {
                     url: /save_class_type_info/,
                     type: 'POST',
-                    data: {'class_type_name': class_type_name},
+                    data: {'class_type_name': class_type_name, 'grade': grade},
                     success: function (data) {
                         if(data.status == 200)
                         {
@@ -248,13 +266,16 @@
                                 "                                <label for='"+class_type_name+"'>" + class_type_name + "</label>\n" +
                                 "                            </div>")
                             $("#class_type_name").val("");
+                        }else
+                        {
+                            $("#class_type_error_txt").empty().append('已存在相同班级类型');
                         }
                     }
                 }
             )
         }else
         {
-            $("#class_type_error_txt").append("请输入班级类型名称");
+            $("#class_type_error_txt").append("请检查信息是否完整");
         }
     })
     $("#class_type_save_end").click(function () {

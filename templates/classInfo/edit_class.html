@@ -75,6 +75,7 @@
                         <th>班级类型</th>
                         <th>班级名称</th>
                         <th>课程及课时</th>
+                        <th>班主任</th>
                         <th>修改</th>
                         <th>删除</th>
                     </tr>
@@ -86,6 +87,11 @@
                             <td>{{ item.class_type }}</td>
                             <td>{{ item.class_name }}</td>
                             <td>{{ item.subject_hour }}</td>
+                            {% if item.has_headmaster %}
+                            <td>{{ item.headmaster }}</td>
+                            {% else %}
+                            <td><button class="btn btn-success" name="add_head_master">指定</button></td>
+                            {% endif %}
                             <td><button class="btn btn-info" name="edit">修改</button></td>
                             <td><button class="btn btn-danger" name="delete">删除</button></td>
                         </tr>
@@ -100,6 +106,42 @@
             <div class="col-md-4"></div>
             <div class="col-md-4">
                 <a href="/turn_teacher_rule" class="form-control btn btn-info">下一步</a>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="add_headmaster" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div class="row">
+                        <h4 class="modal-title text-center" id="add_head_class_name"></h4>
+                    </div>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-1"></div>
+                        <div class="col-md-8">
+                            <h5>指定班主任：</h5>
+                        </div>
+                    </div>
+                    <div class="row li_top_min" id="teacher_box">
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="row">
+                        <div class="col-md-2"></div>
+                        <div class="col-md-4">
+                            <button id="save_headmaster" class="form-control">保存</button>
+                        </div>
+                        <div class="col-md-4">
+                            <button id="cencel_headmaster" class="form-control">取消</button>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <h5 id="class_error_txt" class="text-center"></h5>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -118,7 +160,7 @@
                         <div class="col-md-6 li_top_min">
                             <div class="input-group">
                                 <span class="input-group-addon">{{ subject.subject_name }}</span>
-                                <input id="chinese_hour" name="hour_number" type="number" class="form-control" aria-label="Amount (to the nearest dollar)">
+                                <input id="{{ subject.subject_name }}" name="hour_number" type="number" class="form-control" aria-label="Amount (to the nearest dollar)">
                                 <span class="input-group-addon">节</span>
                             </div>
                         </div>
@@ -136,7 +178,8 @@
                         </div>
                     </div>
                     <div class="row">
-                        <h5 id="class_error_txt" class="text-center"></h5>
+                        <h5 id="class_error_txt1" class="text-center"></h5>
+                        <h5 id="class_error_txt2" class="text-center"></h5>
                     </div>
                 </div>
             </div>
@@ -189,6 +232,44 @@
                         {
                             current_element.children().eq(3).text(data.class_hour);
                             $("#edit_class_box").modal("hide");
+                        }else
+                        {
+                        let high_txt = '';
+                        for(let i=0;i<data.high_hour.length;i++)
+                        {
+                            if(i == data.high_hour.length - 1)
+                            {
+                                high_txt += data.high_hour[i].subject_name;
+                            }else
+                            {
+                                high_txt += data.high_hour[i].subject_name + '、';
+                            }
+                        }
+                        let no_subject = '';
+                        for(let i=0;i<data.no_subject.length;i++)
+                        {
+                            if(i == data.no_subject.length - 1)
+                            {
+                                no_subject += data.no_subject[i].subject_name;
+                            }else
+                            {
+                                no_subject += data.no_subject[i].subject_name + '、';
+                            }
+                        }
+                        if(high_txt != '')
+                        {
+                            $('#class_error_txt1').empty().append('以下固定上课程课时超过事先安排课程课时：' + high_txt);
+                        }else
+                        {
+                            $('#class_error_txt1').empty()
+                        }
+                        if(no_subject != '')
+                        {
+                            $('#class_error_txt2').empty().append('以下固定上课程不在事先安排课程内：' + no_subject);
+                        }else
+                        {
+                            $('#class_error_txt2').empty()
+                        }
                         }
                     }
                 }
@@ -196,6 +277,55 @@
         })
     $("#quit").click(function () {
         $("#edit_class_box").modal("hide");
+    })
+    $(document).on('click','[name="add_head_master"]',function () {
+        let class_name = $(this).parent().parent().children().eq(2).text().trim();
+        current_element = $(this).parent().parent();
+        $("#add_head_class_name").empty().append(class_name);
+        $.ajax(
+            {
+                url: /get_grade_teacher/,
+                type: 'POST',
+                data: {'class_name': JSON.stringify(class_name.trim())},
+                success: function (data) {
+                    let trs = '<div class="col-md-2"></div><div class="col-md-8">';
+                    for(let i=0;i<data.teachers.length;i++)
+                    {
+                        let tr = '<div class="col-md-4 li_top_min">' +
+                            '<input name="head_master_name" type="radio" id="' + data.teachers[i] + '" name="grade" value="' + data.teachers[i] + '">' +
+                            '                                <label for="' + data.teachers[i] + '">' + data.teachers[i] + '</label>' +
+                            '</div>';
+                        trs += tr;
+                    }
+                    trs += "</div>"
+                    $("#teacher_box").empty().append(trs);
+                }
+            }
+        )
+        $("#add_headmaster").modal('show');
+    })
+    $("#cencel_headmaster").click(function () {
+        $("#add_head_class_name").val('');
+        $("#add_headmaster").modal('hide');
+    })
+    $("#save_headmaster").click(function () {
+        let class_name = $("#add_head_class_name").text().trim();
+        let teacher = $("[name='head_master_name']:checked").val();
+        $.ajax(
+            {
+                url: /save_headmaster/,
+                type: 'POST',
+                data: JSON.stringify({'class_name': class_name, 'teacher': teacher}),
+                success: function (data) {
+                    if(data.status == 200)
+                    {
+                        current_element.children().eq(4).empty().append(teacher);
+                        $("#add_head_class_name").val('');
+                        $("#add_headmaster").modal('hide');
+                    }
+                }
+            }
+        )
     })
 </script>
 </body>

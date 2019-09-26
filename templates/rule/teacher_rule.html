@@ -112,10 +112,13 @@
                 </table>
             </div>
             <div class="row">
-                <div class="col-md-4"></div>
-                <div class="col-md-4">
-                    <button id="save_rule" class="form-control btn btn-info">保存</button>
-                </div>
+                <div class="col-md-3"></div>
+                    <div class="col-md-3">
+                        <button id="save_rule" class="form-control btn btn-info">保存</button>
+                    </div>
+                    <div class="col-md-3">
+                        <button id="close" class="form-control btn btn-info">取消</button>
+                    </div>
             </div>
         </div>
     </div>
@@ -147,19 +150,19 @@
     $("th").click(function () {
         let column_index = $(this).index();
         $("tbody tr").each(function () {
-            $(this).children().eq(column_index).css('background-color',cell_color);
+            $(this).children().eq(column_index).css('background-color',cell_color).attr('name', type);
         })
     })
     $("[name='head_cell']").click(function () {
-        $(this).nextAll().css('background-color',cell_color);
-        $(this).css('background-color','');
+        $(this).nextAll().css('background-color',cell_color).attr('name', type);
+        $(this).css('background-color','').attr('name', 'head_cell');
     })
     $("[name='teacher_name_div']").click(function () {
         $("td").each(function () {
             if($(this).attr('name').trim() != 'head_cell')
             {
                 $(this).css('background-color', '');
-                $(this).attr('name', '');
+                $(this).attr('name', '0');
             }
         })
         let group = $(this).text();
@@ -175,10 +178,10 @@
                         {
                             if(data.color_cells[i].type == '1')
                             {
-                                $("tbody").children().eq(data.color_cells[i].y).children().eq(data.color_cells[i].x).css('background-color', green_color);
+                                $("tbody").children().eq(data.color_cells[i].y).children().eq(data.color_cells[i].x).css('background-color', green_color).attr('name', '1');
                             }else
                             {
-                                $("tbody").children().eq(data.color_cells[i].y).children().eq(data.color_cells[i].x).css('background-color', red_color);
+                                $("tbody").children().eq(data.color_cells[i].y).children().eq(data.color_cells[i].x).css('background-color', red_color).attr('name', '-1');
                             }
                         }
                     }
@@ -231,6 +234,10 @@
         {
             $(this).attr('href', $(this).attr('href').replace('#', ''));
         }
+    })
+    $("#close").click(function () {
+        $("#add_rule_box").css('display','none');
+        $("#teacher_name").empty();
     })
 </script>
 </body>

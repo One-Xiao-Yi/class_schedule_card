@@ -79,15 +79,15 @@
         <div class="col-md-3 path_btn">
             <div class="col-md-10 path_btn">
 			<div class="panel-group" id="class_box">
-                {% for one_grade in grade %}
+                {% for key, value in items.items %}
 				<div class="panel panel-default">
 					<div class="panel-heading">
-						 <p name="class_name_div" class="panel-title" data-toggle="collapse" data-parent="#class_box" href="#{{ one_grade.grade_name }}">{{ one_grade.grade_name }}</p>
+						 <p name="class_name_div" class="panel-title" data-toggle="collapse" data-parent="#class_box" href="#{{ key }}">{{ key }}</p>
 					</div>
-					<div id="{{ one_grade.grade_name }}" class="panel-collapse collapse">
-                        {% for one_class_type in class_type %}
+					<div id="{{ key }}" class="panel-collapse collapse">
+                        {% for one_class_type in value %}
 						<div name="class_name_div" class="panel-body">
-							{{ one_grade.grade_name }}|{{ one_class_type.type_name }}
+							{{ key }}|{{ one_class_type }}
 						</div>
                         {% endfor %}
 					</div>
@@ -100,25 +100,25 @@
             <div class="row path_btn">
                 <h4 class="text-center" id="class_type_name"></h4>
             </div>
-            <div class="row li_top_min">
-                <h5 class="text-center">空格内不填写，则表示不分配该课程。</h5>
-            </div>
             <div class="row path_btn">
                 {% for subject in subjects %}
                 <div class="col-md-6 li_top_min">
                     <div class="input-group">
                         <span class="input-group-addon">{{ subject.subject_name }}</span>
-                        <input id="chinese_hour" name="hour_number" type="number" class="form-control" aria-label="Amount (to the nearest dollar)">
+                        <input id="{{ subject.subject_name }}" name="hour_number" type="number" class="form-control" aria-label="Amount (to the nearest dollar)">
                         <span class="input-group-addon">节</span>
                     </div>
                 </div>
                 {% endfor %}
             </div>
             <div class="row path_btn">
-                <div class="col-md-5"></div>
-                <div class="col-md-2">
-                    <button class="form-control btn btn-info" id="save">保存</button>
-                </div>
+                <div class="col-md-3"></div>
+                    <div class="col-md-3">
+                        <button id="save" class="form-control btn btn-info">保存</button>
+                    </div>
+                    <div class="col-md-3">
+                        <button id="close" class="form-control btn btn-info">取消</button>
+                    </div>
             </div>
         </div>
     </div>
@@ -135,17 +135,27 @@
 <script>
     $("[name='class_name_div']").click(function () {
         let class_type_name = $(this).text();
-        if($("#class_type_name").text() != class_type_name)
-        {
-           if($("#class_hour_box").css('display') == 'block')
-            {
-                alert("请先保存上一次课程添加结果。")
-            }else
-            {
-                $("#class_hour_box").css('display','block');
-                $("#class_type_name").empty().append(class_type_name);
-            }
-        }
+            $("[name='hour_number']").val("");
+            $.ajax(
+                {
+                    url: /get_class_hour/,
+                    type: 'POST',
+                    data: {'grade_type': class_type_name.trim()},
+                    success: function (data) {
+                        $("[name='hour_number']").each(function () {
+                            for(let i=0;i<data.items.length;i++)
+                            {
+                                if($(this).prev().text().trim() == data.items[i].subject_name)
+                                {
+                                    $(this).val(data.items[i].number);
+                                }
+                            }
+                        })
+                    }
+                }
+            )
+            $("#class_hour_box").css('display','block');
+            $("#class_type_name").empty().append(class_type_name);
     })
     $("#save").click(function () {
         let class_name = $("#class_type_name").text();
@@ -160,7 +170,7 @@
             {
                 url: /save_subject_hour_info/,
                 type: 'POST',
-                data: JSON.stringify({'class_name': class_name, 'subject_hours': subject_hours}),
+                data: JSON.stringify({'class_name': class_name.trim(), 'subject_hours': subject_hours}),
                 success: function (data) {
                     $("[name='hour_number']").val("");
                     $("#class_hour_box").css('display','none');
@@ -185,6 +195,10 @@
         {
             $(this).attr('href', $(this).attr('href').replace('#', ''));
         }
+    })
+    $("#close").click(function () {
+        $("[name='hour_number']").val("");
+        $("#class_hour_box").css('display','none');
     })
 </script>
 </body>

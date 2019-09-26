@@ -15,6 +15,9 @@ def receive_table_info(request):
     night = int(data['night'])
     one_day = early + morning + afternoon + night
     row_numbers = []
+    Semester.objects.all().delete()
+    RowCard.objects.all().delete()
+    ColumnCard.objects.all().delete()
     semester = Semester(str(uuid.uuid1()).replace('-', ''),
                         int('20' + str(year)), order)
     semester.save()

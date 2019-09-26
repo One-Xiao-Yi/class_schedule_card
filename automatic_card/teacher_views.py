@@ -56,9 +56,10 @@ def update_teacher_info(request):
     teacher_group = TeacherGroup.objects.get(group_name=data['teacher_group'])
     teacher = Teacher.objects.get(Q(teacher_name=teacher_name),
                                   Q(teacher_grade=old_grade))
-    teacher.subject_set.all().delete()
+    for subject in teacher.subject_set.all():
+        teacher.subject_set.remove(subject)
     for subject_name in subjects:
-        subject = Subject.objects.get(subject_name=subject_name)
+        subject = Subject.objects.get(subject_name=subject_name.strip())
         teacher.subject_set.add(subject)
     teacher.teacher_grade_id = grade.grade_id
     teacher.teacher_group_id = teacher_group.group_id

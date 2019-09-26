@@ -34,26 +34,6 @@ def start_input(request):
 
 
 def turn_subject(request):
-    # subject1 = Subject(str(uuid.uuid1()).replace('-', ''), '语文')
-    # subject2 = Subject(str(uuid.uuid1()).replace('-', ''), '数学')
-    # subject3 = Subject(str(uuid.uuid1()).replace('-', ''), '英语')
-    # subject4 = Subject(str(uuid.uuid1()).replace('-', ''), '历史')
-    # subject5 = Subject(str(uuid.uuid1()).replace('-', ''), '政治')
-    # subject6 = Subject(str(uuid.uuid1()).replace('-', ''), '地理')
-    # subject7 = Subject(str(uuid.uuid1()).replace('-', ''), '专业')
-    # subject8 = Subject(str(uuid.uuid1()).replace('-', ''), '扫除')
-    # subject9 = Subject(str(uuid.uuid1()).replace('-', ''), '自习')
-    # subject0 = Subject(str(uuid.uuid1()).replace('-', ''), '体育')
-    # subject0.save()
-    # subject1.save()
-    # subject2.save()
-    # subject3.save()
-    # subject4.save()
-    # subject5.save()
-    # subject6.save()
-    # subject7.save()
-    # subject8.save()
-    # subject9.save()
     subjects = Subject.objects.all()
     return render(request, 'subjectInfo/subject_info.html',
                   {'subjects': subjects})
@@ -103,11 +83,15 @@ def turn_class(request):
 
 def turn_class_hour(request):
     subjects = Subject.objects.all()
-    class_type = ClassType.objects.all()
     grade = Grade.objects.all()
+    items = {}
+    for one_grade in grade:
+        class_types = []
+        for one_class_type in one_grade.class_type.all():
+            class_types.append(one_class_type.type_name)
+        items[one_grade.grade_name] = class_types
     return render(request, 'classInfo/add_class_hour.html',
-                  {'subjects': subjects, 'class_type': class_type,
-                   'grade': grade})
+                  {'subjects': subjects, 'items': items})
 
 
 def turn_class_edit(request):
@@ -120,6 +104,9 @@ def turn_class_edit(request):
                 subject_hours = class_normal.subjectclassnormal_set.all()
                 subject_hour_lenght = len(subject_hours)
                 subject_hour = ''
+                has_headmaster = True
+                if not class_normal.head_master_id:
+                    has_headmaster = False
                 for i in range(subject_hour_lenght):
                     if i == subject_hour_lenght - 1:
                         subject_hour += subject_hours[i].subject.subject_name\
@@ -129,11 +116,22 @@ def turn_class_edit(request):
                         subject_hour += subject_hours[i].subject.subject_name\
                                         + str(subject_hours[i].subject_number)\
                                         + '节' + '、'
-                one_item = {'grade': grade.grade_name,
-                            'class_type': class_type.type_name,
-                            'class_name': class_normal.class_name,
-                            'subject_hour': subject_hour
-                            }
+                if has_headmaster:
+                    one_item = {'grade': grade.grade_name,
+                                'class_type': class_type.type_name,
+                                'class_name': class_normal.class_name,
+                                'has_headmaster': has_headmaster,
+                                'headmaster':
+                                    class_normal.head_master.teacher_name,
+                                'subject_hour': subject_hour
+                                }
+                else:
+                    one_item = {'grade': grade.grade_name,
+                                'class_type': class_type.type_name,
+                                'class_name': class_normal.class_name,
+                                'has_headmaster': has_headmaster,
+                                'subject_hour': subject_hour
+                                }
                 items.append(one_item)
     class_types = ClassType.objects.all()
     subjects = Subject.objects.all()
@@ -153,13 +151,17 @@ def turn_teacher_rule(request):
 
 def turn_class_rule(request):
     subjects = Subject.objects.all()
-    class_type = ClassType.objects.all()
     grade = Grade.objects.all()
+    items = {}
+    for one_grade in grade:
+        class_types = []
+        for one_class_type in one_grade.class_type.all():
+            class_types.append(one_class_type.type_name)
+        items[one_grade.grade_name] = class_types
     row_cards = RowCard.objects.all().order_by('row_index')
     column_cards = ColumnCard.objects.all().order_by('column_index')
     return render(request, 'rule/class_rule.html',
-                  {'subjects': subjects, 'class_type': class_type,
-                   'grade': grade, 'row_cards': row_cards,
+                  {'subjects': subjects, 'items': items, 'row_cards': row_cards,
                    'column_cards': column_cards})
 
 
