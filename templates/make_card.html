@@ -45,7 +45,11 @@
             </div>
         </div>
     </div>
-    <a id="start_btn" href="" class="btn btn-info" style="position: absolute;">点击开始生成课表</a>
+    <div id="start_btn" style="position: absolute;text-align: center;">
+        <a id="check_make_card" class="btn btn-info">点击开始生成课表</a>
+        <a id="out_card" href="/out_card" class="btn btn-info" style="display: none;">查看生成的课表</a>
+        <h5 id="error_txt"></h5>
+    </div>
     <script>
         let height = $(window).height();
         let width = $(window).width();
@@ -53,6 +57,33 @@
         let btn_top = (height - $("#start_btn").height()) / 2 + 'px';
         let btn_left = (width - $("#start_btn").width()) / 2 + 'px';
         $("#start_btn").css("top",btn_top).css("left",btn_left);
+        $("#check_make_card").click(function () {
+            $("#error_txt").empty()
+            $.ajax(
+                {
+                    url: /check_make_card/,
+                    type: 'POST',
+                    success: function (data) {
+                        if(data.status == 300)
+                        {
+                            $("#error_txt").empty().append('以下课程教师人数不足，请检查教师信息是否输入完整：'+data.subject)
+                        }else
+                        {
+                            $.ajax(
+                                {
+                                    url: /make_card/,
+                                    type: 'POST',
+                                    success: function () {
+                                        $("#check_make_card").css('display', 'none');
+                                        $("#out_card").css('display', 'block');
+                                    }
+                                }
+                            )
+                        }
+                    }
+                }
+            )
+        })
     </script>
 </body>
 </html>

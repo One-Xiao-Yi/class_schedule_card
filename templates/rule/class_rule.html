@@ -268,13 +268,7 @@
         )
     })
     $("[name='top_turn']").click(function () {
-        if($("#add_rule_box").css('display') == 'block')
-        {
-            alert("请先保存上一次添加结果。");
-        }else
-        {
-            $(this).attr('href', $(this).attr('href').replace('#', ''));
-        }
+        $(this).attr('href', $(this).attr('href').replace('#', ''));
     })
     $("#close").click(function () {
         $("#add_rule_box").css('display','none');

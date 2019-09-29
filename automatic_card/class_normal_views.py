@@ -39,8 +39,17 @@ def receive_subject_hour_info(request):
     item_name = data['class_name']
     items = item_name.split('|')
     subject_hours = data['subject_hours']
+    all_subject_number = 0
+    for subject_hour in subject_hours:
+        if not subject_hour['number'] == '':
+            all_subject_number += int(subject_hour['number'])
+    to_subject_number = len(RowCard.objects.all()) * len(
+                ColumnCard.objects.all())
     grade = Grade.objects.get(grade_name=items[0])
     if len(items) == 1:
+        if all_subject_number > to_subject_number:
+            return JsonResponse({'status': 300, 'now': all_subject_number,
+                                 'to': to_subject_number})
         class_normals = grade.classnormal_set.all()
         for subject_hour in subject_hours:
             subject = Subject.objects.get(
@@ -65,6 +74,9 @@ def receive_subject_hour_info(request):
                                                  subject_hour['number'])
                     grade_subject.save()
     else:
+        if not all_subject_number == to_subject_number:
+            return JsonResponse({'status': 300, 'now': all_subject_number,
+                                 'to': to_subject_number})
         class_type = grade.class_type.get(type_name=items[1])
         class_normals = ClassNormal.objects.filter(class_grade=grade)\
             .filter(class_type=class_type)

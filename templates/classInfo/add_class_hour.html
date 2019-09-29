@@ -111,6 +111,12 @@
                 </div>
                 {% endfor %}
             </div>
+            <div class="row">
+                <div class="col-md-2"></div>
+                <div class="col-md-8">
+                    <h5 id="save_error_txt" class="text-center"></h5>
+                </div>
+            </div>
             <div class="row path_btn">
                 <div class="col-md-3"></div>
                     <div class="col-md-3">
@@ -148,6 +154,7 @@
                                 if($(this).prev().text().trim() == data.items[i].subject_name)
                                 {
                                     $(this).val(data.items[i].number);
+                                    $("#save_error_txt").empty();
                                 }
                             }
                         })
@@ -172,29 +179,24 @@
                 type: 'POST',
                 data: JSON.stringify({'class_name': class_name.trim(), 'subject_hours': subject_hours}),
                 success: function (data) {
-                    $("[name='hour_number']").val("");
-                    $("#class_hour_box").css('display','none');
+                    if(data.status == 200)
+                    {
+                        $("[name='hour_number']").val("");
+                        $("#class_hour_box").css('display','none');
+                        $("#save_error_txt").empty();
+                    }else if(data.status == 300)
+                    {
+                        $("#save_error_txt").empty().append("课时与规定每周课时不符，规定每周课时"+data.to+"节,本次保存课时为"+data.now+"节");
+                    }
                 }
             }
         )
     })
     $("#btn_turn").click(function () {
-        if($("#class_hour_box").css('display') == 'block')
-        {
-            alert("请先保存上一次课程添加结果。")
-        }else
-        {
-            $("#turn").click();
-        }
+        $("#turn").click();
     })
     $("[name='top_turn']").click(function () {
-        if($("#class_hour_box").css('display') == 'block')
-        {
-            alert("请先保存上一次课程添加结果。");
-        }else
-        {
-            $(this).attr('href', $(this).attr('href').replace('#', ''));
-        }
+        $(this).attr('href', $(this).attr('href').replace('#', ''));
     })
     $("#close").click(function () {
         $("[name='hour_number']").val("");

@@ -1,5 +1,7 @@
 from django.shortcuts import render
 from automatic_card.models import *
+from django.db.models import Q
+from django.http import JsonResponse
 
 
 def home(request):
@@ -167,3 +169,29 @@ def turn_class_rule(request):
 
 def turn_make_card(request):
     return render(request, 'make_card.html')
+
+
+def check_make_card(request):
+    one_week_hour = len(RowCard.objects.all()) * len(ColumnCard.objects.all())
+    error_subject = ''
+    for grade in Grade.objects.all():
+        one_grade_hour = {}
+        for class_normal in grade.classnormal_set.all():
+            for class_subject in class_normal.subjectclassnormal_set.all():
+                if class_subject.subject.subject_name not in one_grade_hour:
+                    one_grade_hour[class_subject.subject.subject_name] = \
+                        class_subject.subject_number
+                else:
+                    one_grade_hour[class_subject.subject.subject_name] += \
+                        class_subject.subject_number
+        for key in one_grade_hour:
+            subject = Subject.objects.get(subject_name=key)
+            teachers = Teacher.objects.filter(Q(teacher_grade=grade),
+                                              Q(subject=subject))
+            if teachers:
+                if one_grade_hour[key] > len(teachers) * one_week_hour:
+                    error_subject += subject.subject_name + '、'
+    if error_subject:
+        return JsonResponse({'status': 300, 'subject': error_subject})
+    else:
+        return JsonResponse({'status': 200})

@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>课表查看</title>
+    <script src="../static/js/jquery-3.3.1.min.js"></script>
+    <script src="../static/js/bootstrap.js"></script>
+    <link rel="stylesheet" href="../static/css/bootstrap.css">
+    <link rel="stylesheet" href="../static/css/diy.css">
+</head>
+<body class="body_class">
+    <div class="row path_btn"></div>
+    <div class="row path_btn">
+        <div class="col-md-2"></div>
+        <div class="col-md-2">
+            <div class="col-md-10 path_btn">
+			<div class="panel-group" id="class_box">
+                {% for grade,classes in grade_class.items %}
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						 <p class="panel-title" data-toggle="collapse" data-parent="#class_box" href="#{{ grade }}">{{ grade }}</p>
+					</div>
+					<div id="{{ grade }}" class="panel-collapse collapse">
+                        {% for class in classes %}
+						<div name="class_name_div" class="panel-body">
+							{{ class }}
+						</div>
+                        {% endfor %}
+					</div>
+				</div>
+                {% endfor %}
+			</div>
+            </div>
+            <div class="col-md-10 path_btn">
+			<div class="panel-group" id="class_box">
+                {% for grade,teachers in grade_teacher.items %}
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						 <p class="panel-title" data-toggle="collapse" data-parent="#class_box" href="#{{ grade }}">{{ grade }}</p>
+					</div>
+					<div id="{{ grade }}" class="panel-collapse collapse">
+                        {% for teacher in teachers %}
+						<div name="teacher_name_div" class="panel-body">
+							{{ teacher }}
+						</div>
+                        {% endfor %}
+					</div>
+				</div>
+                {% endfor %}
+			</div>
+            </div>
+            <div class="col-md-10 li_top_min">
+                <a href="/turn_make_card" class="form-control btn btn-info">返回</a>
+            </div>
+    </div>
+        <div class="col-md-5">
+            <div id="card_box" class="row li_top_min" style="display: none;">
+            <div class="row">
+                <h4 class="text-center" id="name_h4"></h4>
+            </div>
+            <div class="row li_top_min">
+                <h5 class="text-center">未安排教师的课程，默认由班主任上课。例如自习、扫除等</h5>
+            </div>
+            <div class="row li_top_min">
+                <h5 id="change_card_error" class="text-center"></h5>
+            </div>
+                <table class="table table-bordered table_border_color li_top_min">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            {% for column_card in column_cards %}
+                            <th>{{ column_card.column_name }}</th>
+                            {% endfor %}
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for row in row_cards %}
+                        <tr>
+                            <td name="head_cell">{{ row.row_name }}</td>
+                            {% for column in column_cards %}
+                            <td name="0"></td>
+                            {% endfor %}
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+<script>
+    let click_time = 0;
+    let is_class = false;
+    let last_elm = '';
+    let to_elm = '';
+    green_color = '#4cae4c';
+    $("[name='class_name_div']").click(function () {
+        $("#change_card_error").empty();
+        is_class = true;
+        $('td').each(function () {
+            if($(this).attr('name') != 'head_cell')
+            {
+                $(this).empty().css('background', '');
+            }
+        }
+        )
+        let class_name = $(this).text().trim();
+        $.ajax(
+            {
+                url: /get_class_card/,
+                type: 'POST',
+                data: {'class_name': class_name},
+                success: function (data) {
+                    for(let i=0;i<data.item_cells.length;i++)
+                        {
+                            $("tbody").children().eq(data.item_cells[i].y).children().eq(data.item_cells[i].x).text(data.item_cells[i].subject + "|" + data.item_cells[i].teacher);
+                        }
+                }
+            }
+        )
+        $("#card_box").css('display', 'block');
+        $("#name_h4").empty().append(class_name);
+    })
+    $("[name='teacher_name_div']").click(function () {
+        is_class = false;
+        $("#change_card_error").empty();
+        $('td').each(function () {
+            if($(this).attr('name') != 'head_cell')
+            {
+                $(this).empty().css('background', '');
+            }
+        }
+        )
+        let teacher_name = $(this).text().trim();
+        $.ajax(
+            {
+                url: /get_teacher_card/,
+                type: 'POST',
+                data: {'teacher_name': teacher_name},
+                success: function (data) {
+                    for(let i=0;i<data.item_cells.length;i++)
+                        {
+                            $("tbody").children().eq(data.item_cells[i].y).children().eq(data.item_cells[i].x).text(data.item_cells[i].subject + "\n" + data.item_cells[i].class);
+                        }
+                }
+            }
+        )
+        $("#card_box").css('display', 'block');
+        $("#name_h4").empty().append(teacher_name);
+    })
+    $("td").click(function () {
+        if(last_elm == $(this))
+        {
+            $(this).css('back-ground-color', '');
+            click_time = 0;
+        }else
+        {
+          if(is_class)
+        {
+          if($(this).attr('name') != 'head_cell')
+        {
+            $("#change_card_error").empty();
+            click_time++;
+            if(click_time == 1)
+            {
+                $(this).css('background-color', green_color);
+                last_elm = $(this);
+            }else if(click_time == 2)
+            {
+                to_elm = $(this);
+                let class_name = $("#name_h4").text().trim();
+                $.ajax(
+                    {
+                        url: /change_card/,
+                        type: 'POST',
+                        data: JSON.stringify({'class': class_name, 'from': {'column': last_elm.index(), 'row': last_elm.parent().children().eq(0).text().trim(), 'subject': last_elm.text().trim().split('|')[0], 'teacher': last_elm.text().trim().split('|')[1]},
+                            'to': {'column': to_elm.index(), 'row': to_elm.parent().children().eq(0).text().trim(), 'subject': to_elm.text().trim().split('|')[0], 'teacher': to_elm.text().trim().split('|')[1]}}),
+                        success: function (data) {
+                            if(data.status == 200)
+                            {
+                                let last_str = last_elm.text();
+                                last_elm.empty().append(to_elm.text());
+                                to_elm.empty().append(last_str);
+                            }else if(data.status == 300)
+                            {
+                                $("#change_card_error").empty().append('与'+data.teacher+'课程安排冲突')
+                            }else if(data.status == 303)
+                            {
+                                $("#change_card_error").empty().append('与'+data.teacher+'事先定义规则冲突')
+                            }else if(data.status == 305)
+                            {
+                                $("#change_card_error").empty().append('与课程'+data.subject+'事先定义时间冲突')
+                            }
+                            click_time = 0;
+                            $("td").css('background-color', '');
+                        }
+                    }
+                )
+            }
+        }
+        }else
+        {
+            $("#change_card_error").empty().append('只允许更改班级课程表')
+        }
+        }
+    })
+</script>
+</body>
+</html>

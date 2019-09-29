@@ -77,10 +77,6 @@
             </div>
             <div class="row li_top_min">
                 <div class="col-md-3">
-                    <input id="class_true" type="radio" name="class_tf" value="0">
-                    <p class="btn btn-success">固定上某节课</p>
-                </div>
-                <div class="col-md-3">
                     <input id="class_false" type="radio" name="class_tf" value="1">
                     <p class="btn btn-danger">固定不上某节课</p>
                 </div>
@@ -227,13 +223,7 @@
         )
     })
     $("[name='top_turn']").click(function () {
-        if($("#add_rule_box").css('display') == 'block')
-        {
-            alert("请先保存上一次添加结果。");
-        }else
-        {
-            $(this).attr('href', $(this).attr('href').replace('#', ''));
-        }
+        $(this).attr('href', $(this).attr('href').replace('#', ''));
     })
     $("#close").click(function () {
         $("#add_rule_box").css('display','none');
