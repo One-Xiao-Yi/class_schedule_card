@@ -269,6 +269,19 @@ def change_class_card(request):
                                                Q(column_card=from_column),
                                                Q(teacher=to_teacher))
         if teacher_rule.item == 1:
+            from_card = Card.objects.get(Q(row=from_row),
+                                         Q(column=from_column),
+                                         Q(class_normal=class_normal))
+            to_card = Card.objects.get(Q(row=to_row), Q(column=to_column),
+                                       Q(class_normal=class_normal))
+            from_card.row = to_row
+            from_card.column = to_column
+
+            to_card.row = from_row
+            to_card.column = from_column
+
+            to_card.save()
+            from_card.save()
             return JsonResponse({'status': 303, 'teacher': to_teacher.teacher_name})
     except BaseException:
         pass
@@ -278,6 +291,19 @@ def change_class_card(request):
                                                Q(column_card=to_column),
                                                Q(teacher=from_teacher))
         if teacher_rule.item == 1:
+            from_card = Card.objects.get(Q(row=from_row),
+                                         Q(column=from_column),
+                                         Q(class_normal=class_normal))
+            to_card = Card.objects.get(Q(row=to_row), Q(column=to_column),
+                                       Q(class_normal=class_normal))
+            from_card.row = to_row
+            from_card.column = to_column
+
+            to_card.row = from_row
+            to_card.column = from_column
+
+            to_card.save()
+            from_card.save()
             return JsonResponse({'status': 303, 'teacher': from_teacher.teacher_name})
     except BaseException:
         pass
@@ -286,6 +312,19 @@ def change_class_card(request):
         class_rule = class_normal.classnormalrule_set.get(Q(row_card=to_row),
                                                  Q(column_card=to_column))
         if class_rule.item != from_subject:
+            from_card = Card.objects.get(Q(row=from_row),
+                                         Q(column=from_column),
+                                         Q(class_normal=class_normal))
+            to_card = Card.objects.get(Q(row=to_row), Q(column=to_column),
+                                       Q(class_normal=class_normal))
+            from_card.row = to_row
+            from_card.column = to_column
+
+            to_card.row = from_row
+            to_card.column = from_column
+
+            to_card.save()
+            from_card.save()
             return JsonResponse(
                 {'status': 305, 'subject': class_rule.item})
     except BaseException:
@@ -295,6 +334,19 @@ def change_class_card(request):
         class_rule = class_normal.classnormalrule_set.get(Q(row_card=from_row),
                                                  Q(column_card=from_column))
         if class_rule.item != to_subject:
+            from_card = Card.objects.get(Q(row=from_row),
+                                         Q(column=from_column),
+                                         Q(class_normal=class_normal))
+            to_card = Card.objects.get(Q(row=to_row), Q(column=to_column),
+                                       Q(class_normal=class_normal))
+            from_card.row = to_row
+            from_card.column = to_column
+
+            to_card.row = from_row
+            to_card.column = from_column
+
+            to_card.save()
+            from_card.save()
             return JsonResponse({'status': 305, 'subject': class_rule.item})
     except BaseException:
         pass
