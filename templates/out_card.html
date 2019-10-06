@@ -32,6 +32,9 @@
                 {% endfor %}
 			</div>
             </div>
+            <div class="col-md-10">
+                <a href="/export_all_class_table" class="form-control btn btn-info">下载所有班级课程表</a>
+            </div>
             <div class="col-md-10 path_btn">
 			<div class="panel-group" id="class_box">
                 {% for grade,teachers in grade_teacher.items %}
@@ -50,6 +53,9 @@
                 {% endfor %}
 			</div>
             </div>
+            <div class="col-md-10">
+                <a href="/export_all_teacher_table" class="form-control btn btn-info">下载所有老师课程表</a>
+            </div>
             <div class="col-md-10 li_top_min">
                 <a href="/turn_make_card" class="form-control btn btn-info">返回</a>
             </div>
@@ -61,6 +67,14 @@
             </div>
             <div class="row li_top_min">
                 <h5 class="text-center">未安排教师的课程，默认由班主任上课。例如自习、扫除等</h5>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    <form action="" method="get">
+                        <input type="hidden" id="hidden_name" name="name">
+                        <input type="button" class="form-control btn btn-info" id="export_card" value="导出该课程表">
+                    </form>
+                </div>
             </div>
             <div class="row li_top_min">
                 <h5 id="change_card_error" class="text-center"></h5>
@@ -93,9 +107,11 @@
     let is_class = false;
     let last_elm = '';
     let to_elm = '';
+    let teacher_class = '';
     green_color = '#4cae4c';
     $("[name='class_name_div']").click(function () {
         $("#change_card_error").empty();
+        $("form").attr('action', '/export_class_table');
         is_class = true;
         $('td').each(function () {
             if($(this).attr('name') != 'head_cell')
@@ -118,6 +134,7 @@
                 }
             }
         )
+        teacher_class = class_name;
         $("#card_box").css('display', 'block');
         $("#name_h4").empty().append(class_name);
     })
@@ -132,6 +149,8 @@
         }
         )
         let teacher_name = $(this).text().trim();
+        let grade = $(this).parent().prev().children().eq(0).text().trim();
+        teacher_name = grade + '|' + teacher_name;
         $.ajax(
             {
                 url: /get_teacher_card/,
@@ -145,6 +164,8 @@
                 }
             }
         )
+        teacher_class = teacher_name;
+        $("form").attr('action', '/export_teacher_table');
         $("#card_box").css('display', 'block');
         $("#name_h4").empty().append(teacher_name);
     })
@@ -203,6 +224,10 @@
             $("#change_card_error").empty().append('只允许更改班级课程表')
         }
         }
+    })
+    $('#export_card').click(function () {
+        $("#hidden_name").val(teacher_class);
+        $("form").submit();
     })
 </script>
 </body>

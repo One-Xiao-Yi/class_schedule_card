@@ -60,4 +60,8 @@ urlpatterns = [
     path('get_class_card/', get_class_card),
     path('get_teacher_card/', get_teacher_card),
     path('change_card/', change_class_card),
+    path('export_class_table/', export_one_class_card),
+    path('export_teacher_table/', export_one_teacher_card),
+    path('export_all_class_table/', export_all_class_card),
+    path('export_all_teacher_table/', export_all_teacher_card),
 ]
