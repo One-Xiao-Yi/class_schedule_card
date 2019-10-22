@@ -10,7 +10,9 @@
     <link rel="stylesheet" href="../static/css/diy.css">
 </head>
 <body class="body_class">
-    <div class="row path_btn"></div>
+    <div class="row path_btn">
+        <h2 class="text-center">{{ year.semester_year }}年第{{ year.semester_order }}学期</h2>
+    </div>
     <div class="row path_btn">
         <div class="col-md-2"></div>
         <div class="col-md-2">
@@ -57,7 +59,7 @@
                 <a href="/export_all_teacher_table" class="form-control btn btn-info">下载所有老师课程表</a>
             </div>
             <div class="col-md-10 li_top_min">
-                <a href="/turn_make_card" class="form-control btn btn-info">返回</a>
+                <a id="go_back" class="form-control btn btn-info">返回</a>
             </div>
     </div>
         <div class="col-md-5">
@@ -228,6 +230,9 @@
     $('#export_card').click(function () {
         $("#hidden_name").val(teacher_class);
         $("form").submit();
+    })
+    $('#go_back').click(function () {
+        window.history.go(-1);
     })
 </script>
 </body>

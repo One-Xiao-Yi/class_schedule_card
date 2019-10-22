@@ -28,7 +28,14 @@ def home(request):
     # for grade in grades:
     #     for class_type in class_types:
     #         grade.class_type.add(class_type)
-    return render(request, "home.html")
+    has_card = False
+    try:
+        cards = Card.objects.all()[:10]
+        if len(cards) > 0:
+            has_card = True
+    except Exception:
+        pass
+    return render(request, "home.html", {'has_card': has_card})
 
 
 def start_input(request):

@@ -221,6 +221,7 @@ def make_card(request):
 def turn_out_card(request):
     grade_class = {}
     grade_teacher = {}
+    year = Semester.objects.all()[0]
     for grade in Grade.objects.all():
         grade_class[grade.grade_name + '班级'] = []
         grade_teacher[grade.grade_name + '教师'] = []
@@ -233,7 +234,8 @@ def turn_out_card(request):
     return render(request, 'out_card.html', {'grade_class': grade_class,
                                              'grade_teacher': grade_teacher,
                                              'row_cards': row_cards,
-                                             'column_cards': column_cards})
+                                             'column_cards': column_cards,
+                                             'year': year})
 
 
 def get_class_card(request):

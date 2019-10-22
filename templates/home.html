@@ -11,13 +11,20 @@
 </head>
 <body class="body_class">
     <a id="start_btn" href="/start_input" class="btn btn-info" style="position: absolute;">开始排课</a>
+    {% if has_card %}
+        <a id="out_card" href="/out_card" class="btn btn-info" style="position: absolute;">查看上次生成的课表</a>
+    {% endif %}
     <script>
         let height = $(window).height();
         let width = $(window).width();
-        $("#start_btn").css("width",width / 5 + 'px').css("height",height / 20 + 'px');
-        let btn_top = (height - $("#start_btn").height()) / 2 + 'px';
+        $("#start_btn").css("width",width / 5 + 'px').css("height",height / 23 + 'px');
+        let top_btn_top = (height - $("#start_btn").height()) / 2 - $("#start_btn").height() * 2 + 'px';
+        let low_btn_top = (height - $("#start_btn").height()) / 2 + $("#start_btn").height() * 2 + 'px';
         let btn_left = (width - $("#start_btn").width()) / 2 + 'px';
-        $("#start_btn").css("top",btn_top).css("left",btn_left);
+        $("#start_btn").css("top",top_btn_top).css("left",btn_left);
+
+        $("#out_card").css("width",width / 5 + 'px').css("height",height / 23 + 'px');
+        $("#out_card").css("top",low_btn_top).css("left",btn_left);
     </script>
 </body>
 </html>
